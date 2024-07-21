@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "547803490829",
+    "project_id": "tesbee-655c7",
+    "storage_bucket": "tesbee-655c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:547803490829:android:b21cbb5508dd5f74918344",
+        "android_client_info": {
+          "package_name": "com.example.tesbih_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTxfczDOg3jv-12Y9BLCEvispB8sATIv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
