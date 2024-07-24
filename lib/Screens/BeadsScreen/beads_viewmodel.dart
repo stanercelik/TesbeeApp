@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tesbih_app/Resources/picker_colors.dart';
 import 'package:vibration/vibration.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class BeadsViewModel extends GetxController {
   var count = 0.obs;
@@ -19,6 +20,9 @@ class BeadsViewModel extends GetxController {
   var backgroundColor = pickerColors["dimgray"]!.obs;
 
   void increment() {
+    playSound();
+    _vibrate([0, 50, 0, 0]);
+
     if (count >= 99) {
       resetCounter();
     } else {
@@ -38,18 +42,16 @@ class BeadsViewModel extends GetxController {
   void updateText() {
     if (count.value == 33) {
       _vibrate([0, 300, 0, 0]);
-    }
-    if (count.value == 66) {
+    } else if (count.value == 66) {
       _vibrate([0, 300, 100, 300]);
-    }
-    if (count.value == 99) {
+    } else if (count.value == 99) {
       _vibrate([0, 300, 100, 300, 100, 300]);
     }
     if (count < 33) {
       currentText.value = subanallah.value;
     } else if (count < 66) {
       currentText.value = elhamdulillah.value;
-    } else {
+    } else if (count < 99) {
       currentText.value = allahuEkber.value;
     }
   }
@@ -79,5 +81,12 @@ class BeadsViewModel extends GetxController {
 
   void changeBackgroundColor(Color color) {
     backgroundColor.value = color;
+  }
+
+  void playSound() async {
+    final player = AudioPlayer();
+    await player.play(
+      AssetSource('sound/wooden_click.mp3'),
+    );
   }
 }
