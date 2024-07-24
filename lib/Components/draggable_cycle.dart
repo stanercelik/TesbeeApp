@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../Screens/BreadsScreen/breads_viewmodel.dart';
+import '../Screens/BeadsScreen/beads_viewmodel.dart';
 
 class DraggableCircle extends StatelessWidget {
-  final BreadsViewModel counterController;
+  final BeadsViewModel counterController;
 
   const DraggableCircle({super.key, required this.counterController});
 
@@ -12,21 +12,22 @@ class DraggableCircle extends StatelessWidget {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
     final double circleRadius = MediaQuery.of(context).size.height * 0.035;
-    final double movementAreaHeight = circleRadius * 5;
-    final double maxMovement = screenHeight * 0.07; // Maksimum hareket alanı
+    final double movementAreaHeight = screenHeight * 0.15;
+    final double maxMovement =
+        movementAreaHeight * 0.47; // Maksimum hareket alanı
 
     final List<Offset> initialPositions = List.generate(
       13,
-      (index) => Offset(0, index * (circleRadius * 2) - screenHeight / 2),
+      (index) => Offset(0, index * (circleRadius * 2) - screenHeight / 2 + 40),
     );
 
     return Stack(
       alignment: Alignment.center,
       children: [
-        Container(
+        Obx(() => Container(
             width: 6,
             height: screenHeight,
-            color: Theme.of(context).colorScheme.background),
+            color: counterController.stringColor.value)),
         ...List.generate(8, (index) {
           return Obx(() {
             return Transform.translate(
@@ -37,7 +38,7 @@ class DraggableCircle extends StatelessWidget {
                           .clamp(-maxMovement, maxMovement)),
               child: CircleAvatar(
                 radius: circleRadius,
-                backgroundColor: Theme.of(context).colorScheme.primary,
+                backgroundColor: counterController.beadColor.value,
               ),
             );
           });
@@ -51,7 +52,7 @@ class DraggableCircle extends StatelessWidget {
                           .clamp(-maxMovement, maxMovement)),
               child: CircleAvatar(
                 radius: circleRadius,
-                backgroundColor: Theme.of(context).colorScheme.primary,
+                backgroundColor: counterController.beadColor.value,
               ),
             )),
         ...List.generate(3, (index) {
@@ -65,7 +66,7 @@ class DraggableCircle extends StatelessWidget {
                           .clamp(-maxMovement, maxMovement)),
               child: CircleAvatar(
                 radius: circleRadius,
-                backgroundColor: Theme.of(context).colorScheme.primary,
+                backgroundColor: counterController.beadColor.value,
               ),
             );
           });
@@ -77,6 +78,10 @@ class DraggableCircle extends StatelessWidget {
             }
           },
           onPanEnd: (details) {
+            final double threshold = movementAreaHeight * 0.45;
+            if (counterController.offsetY.value > threshold) {
+              counterController.offsetY.value = movementAreaHeight;
+            }
             if (counterController.offsetY.value >
                 movementAreaHeight - circleRadius) {
               counterController.increment();

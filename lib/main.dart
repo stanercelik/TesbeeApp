@@ -6,7 +6,8 @@ import 'package:tesbih_app/Routes/routes.dart';
 import 'package:tesbih_app/Screens/Authflow/BaseAuth/base_auth_viewmodel.dart';
 import 'package:tesbih_app/Screens/Authflow/SignInFlow/SignInScreen/signin_view.dart';
 import 'package:tesbih_app/Screens/Authflow/SignUpScreen/signup_view.dart';
-import 'package:tesbih_app/Screens/BreadsScreen/breads_view.dart';
+import 'package:tesbih_app/Screens/BeadsScreen/beads_view.dart';
+import 'package:tesbih_app/Screens/HomeScreen/home_screen_view.dart';
 import 'package:tesbih_app/Screens/WelcomeScreen/welcome_view.dart';
 
 void main() async {
@@ -28,14 +29,15 @@ class TesbeeApp extends StatelessWidget {
         if (userAuthController.firebaseUser.value == null) {
           return WelcomeView();
         } else {
-          return BreadsView();
+          return HomeScreen();
         }
       }),
       getPages: [
         GetPage(name: Routes.welcomeScreen, page: () => WelcomeView()),
         GetPage(name: Routes.signInScreen, page: () => SignInView()),
         GetPage(name: Routes.signUpScreen, page: () => SignUpView()),
-        GetPage(name: Routes.baseBreadScreen, page: () => BreadsView()),
+        GetPage(name: Routes.baseBeadScreen, page: () => BeadsView()),
+        GetPage(name: Routes.homeScreen, page: () => HomeScreen()),
       ],
     );
   }
