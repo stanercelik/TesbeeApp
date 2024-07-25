@@ -6,9 +6,10 @@ import 'package:tesbih_app/Resources/picker_colors.dart';
 import 'package:tesbih_app/Screens/Authflow/BaseAuth/base_auth_viewmodel.dart';
 import 'package:tesbih_app/Screens/BeadsScreen/beads_viewmodel.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:tesbih_app/Utils/color_utils.dart';
 
 class BeadsView extends StatelessWidget {
-  final BeadsViewModel counterController = Get.put(BeadsViewModel());
+  final BeadsViewModel beadsViewModel = Get.put(BeadsViewModel());
   final UserAuthViewModel authViewModel = Get.put(UserAuthViewModel());
 
   BeadsView({super.key});
@@ -17,38 +18,48 @@ class BeadsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
-        backgroundColor: counterController.backgroundColor.value,
+        backgroundColor: beadsViewModel.backgroundColor.value,
         appBar: AppBar(
-          backgroundColor: counterController.backgroundColor.value,
+          centerTitle: true,
+          backgroundColor: beadsViewModel.backgroundColor.value,
           leading: Builder(
             builder: (context) {
               return IconButton(
                 icon: const Icon(Icons.menu),
+                color: getTextColor(beadsViewModel.backgroundColor.value),
                 onPressed: () {
                   Scaffold.of(context).openDrawer();
                 },
               );
             },
           ),
-          title: const Text(
+          title: Text(
             'Tesbee',
-            style: TextStyle(fontSize: 24),
+            style: TextStyle(
+              fontSize: 24,
+              color: getTextColor(beadsViewModel.backgroundColor.value),
+            ),
           ),
         ),
         drawer: Drawer(
+          backgroundColor: beadsViewModel.backgroundColor.value,
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
-              const SizedBox(
-                height: 200,
+              SizedBox(
+                height: 160,
                 child: DrawerHeader(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: AppColors.primaryBackground,
+                    boxShadow: const [BoxShadow(color: Colors.black)],
+                    color: beadsViewModel.backgroundColor.value,
                   ),
                   child: Text(
-                    'Menu',
-                    style: TextStyle(color: Colors.white, fontSize: 25),
+                    'Tesbih Ayarları',
+                    style: TextStyle(
+                        color:
+                            getTextColor(beadsViewModel.backgroundColor.value),
+                        fontSize: 25),
                   ),
                 ),
               ),
@@ -57,15 +68,23 @@ class BeadsView extends StatelessWidget {
                   height: 30,
                   width: 30,
                   decoration: BoxDecoration(
-                      color: counterController.beadColor.value,
-                      border: Border.all(width: 1)),
+                      borderRadius: BorderRadius.circular(8),
+                      color: beadsViewModel.beadColor.value,
+                      border: Border.all(
+                          width: 1,
+                          color: getTextColor(beadsViewModel.beadColor.value))),
                 ),
-                title: const Text('Change beads color'),
+                title: Text(
+                  'Change beads color',
+                  style: TextStyle(
+                    color: getTextColor(beadsViewModel.backgroundColor.value),
+                  ),
+                ),
                 onTap: () {
                   _showColorPicker(
                     context,
-                    counterController.changeBeadColor,
-                    counterController.beadColor.value,
+                    beadsViewModel.changeBeadColor,
+                    beadsViewModel.beadColor.value,
                   );
                 },
               ),
@@ -74,15 +93,24 @@ class BeadsView extends StatelessWidget {
                   height: 30,
                   width: 30,
                   decoration: BoxDecoration(
-                      color: counterController.stringColor.value,
-                      border: Border.all(width: 1)),
+                      borderRadius: BorderRadius.circular(8),
+                      color: beadsViewModel.stringColor.value,
+                      border: Border.all(
+                          width: 1,
+                          color:
+                              getTextColor(beadsViewModel.stringColor.value))),
                 ),
-                title: const Text('Change string color'),
+                title: Text(
+                  'Change string color',
+                  style: TextStyle(
+                    color: getTextColor(beadsViewModel.backgroundColor.value),
+                  ),
+                ),
                 onTap: () {
                   _showColorPicker(
                     context,
-                    counterController.changeStringColor,
-                    counterController.stringColor.value,
+                    beadsViewModel.changeStringColor,
+                    beadsViewModel.stringColor.value,
                   );
                 },
               ),
@@ -91,21 +119,72 @@ class BeadsView extends StatelessWidget {
                   height: 30,
                   width: 30,
                   decoration: BoxDecoration(
-                      color: counterController.backgroundColor.value,
-                      border: Border.all(width: 1)),
+                      borderRadius: BorderRadius.circular(8),
+                      color: beadsViewModel.backgroundColor.value,
+                      border: Border.all(
+                          width: 1,
+                          color: getTextColor(
+                              beadsViewModel.backgroundColor.value))),
                 ),
-                title: const Text('Change background color'),
+                title: Text(
+                  'Change background color',
+                  style: TextStyle(
+                    color: getTextColor(beadsViewModel.backgroundColor.value),
+                  ),
+                ),
                 onTap: () {
                   _showColorPicker(
                     context,
-                    counterController.changeBackgroundColor,
-                    counterController.backgroundColor.value,
+                    beadsViewModel.changeBackgroundColor,
+                    beadsViewModel.backgroundColor.value,
                   );
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.logout_rounded),
-                title: const Text('Sign Out'),
+                leading: Icon(Icons.vibration_rounded,
+                    color: getTextColor(beadsViewModel.backgroundColor.value)),
+                trailing: Switch(
+                  activeColor: beadsViewModel.beadColor.value,
+                  value: beadsViewModel.isVibration.value,
+                  onChanged: (bool newValue) {
+                    beadsViewModel.isVibration.value = newValue;
+                  },
+                ),
+                title: Text(
+                  'Vibration',
+                  style: TextStyle(
+                    color: getTextColor(beadsViewModel.backgroundColor.value),
+                  ),
+                ),
+              ),
+              ListTile(
+                leading: Icon(Icons.alarm_rounded,
+                    color: getTextColor(beadsViewModel.backgroundColor.value)),
+                title: Text(
+                  'Sound Effect',
+                  style: TextStyle(
+                    color: getTextColor(beadsViewModel.backgroundColor.value),
+                  ),
+                ),
+                trailing: Switch(
+                  activeColor: beadsViewModel.beadColor.value,
+                  value: beadsViewModel.isSoundEffect.value,
+                  onChanged: (bool newValue) {
+                    beadsViewModel.isSoundEffect.value = newValue;
+                  },
+                ),
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.logout_rounded,
+                  color: getTextColor(beadsViewModel.backgroundColor.value),
+                ),
+                title: Text(
+                  'Sign Out',
+                  style: TextStyle(
+                    color: getTextColor(beadsViewModel.backgroundColor.value),
+                  ),
+                ),
                 onTap: () {
                   authViewModel.signOut();
                 },
@@ -118,7 +197,7 @@ class BeadsView extends StatelessWidget {
             Positioned.fill(
               child: Align(
                 alignment: Alignment.center,
-                child: DraggableCircle(counterController: counterController),
+                child: DraggableCircle(counterController: beadsViewModel),
               ),
             ),
             Positioned(
@@ -132,8 +211,12 @@ class BeadsView extends StatelessWidget {
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        Colors.black.withOpacity(0.7),
-                        Colors.transparent,
+                        invertColor(getTextColor(
+                                beadsViewModel.backgroundColor.value))
+                            .withOpacity(0.7),
+                        invertColor(getTextColor(
+                                beadsViewModel.backgroundColor.value))
+                            .withAlpha(0),
                       ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
@@ -142,19 +225,21 @@ class BeadsView extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        '${counterController.count}',
+                        '${beadsViewModel.count}',
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontSize: 32,
-                            color: Colors.white,
+                            color: getTextColor(
+                                beadsViewModel.backgroundColor.value),
                             fontWeight: FontWeight.w600),
                       ),
                       Text(
-                        counterController.currentText.value,
+                        beadsViewModel.currentText.value,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontSize: 24,
-                            color: Colors.white,
+                            color: getTextColor(
+                                beadsViewModel.backgroundColor.value),
                             fontWeight: FontWeight.w400),
                       ),
                     ],

@@ -19,9 +19,12 @@ class BeadsViewModel extends GetxController {
   var stringColor = pickerColors["gray"]!.obs;
   var backgroundColor = pickerColors["dimgray"]!.obs;
 
+  var isVibration = true.obs;
+  var isSoundEffect = true.obs;
+
   void increment() {
-    playSound();
-    _vibrate([0, 50, 0, 0]);
+    playSound(isSoundEffect.value);
+    _vibrate([0, 50, 0, 0], isVibration.value);
 
     if (count >= 99) {
       resetCounter();
@@ -40,12 +43,18 @@ class BeadsViewModel extends GetxController {
   }
 
   void updateText() {
-    if (count.value == 33) {
-      _vibrate([0, 300, 0, 0]);
-    } else if (count.value == 66) {
-      _vibrate([0, 300, 100, 300]);
-    } else if (count.value == 99) {
-      _vibrate([0, 300, 100, 300, 100, 300]);
+    switch (count.value) {
+      case 33:
+        playSound(isSoundEffect.value);
+        _vibrate([0, 300, 0, 0], isVibration.value);
+      case 66:
+        playSound(isSoundEffect.value);
+        _vibrate([0, 300, 100, 300], isVibration.value);
+      case 99:
+        playSound(isSoundEffect.value);
+        _vibrate([0, 300, 100, 300, 100, 300], isVibration.value);
+        break;
+      default:
     }
     if (count < 33) {
       currentText.value = subanallah.value;
@@ -67,8 +76,8 @@ class BeadsViewModel extends GetxController {
     resetPosition();
   }
 
-  void _vibrate(List<int> pattern) {
-    Vibration.vibrate(pattern: pattern);
+  void _vibrate(List<int> pattern, bool isVibrate) {
+    isVibrate ? Vibration.vibrate(pattern: pattern) : null;
   }
 
   void changeBeadColor(Color color) {
@@ -83,10 +92,12 @@ class BeadsViewModel extends GetxController {
     backgroundColor.value = color;
   }
 
-  void playSound() async {
-    final player = AudioPlayer();
-    await player.play(
-      AssetSource('sound/wooden_click.mp3'),
-    );
+  void playSound(bool soundEffect) async {
+    if (soundEffect) {
+      final player = AudioPlayer();
+      await player.play(
+        AssetSource('sound/wooden_click.mp3'),
+      );
+    }
   }
 }
