@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tesbih_app/Screens/BeadsScreen/beads_view.dart';
+import 'package:tesbih_app/Screens/HomeScreen/home_screen_view.dart';
 import 'package:tesbih_app/Screens/WelcomeScreen/welcome_view.dart';
 
 class UserAuthViewModel extends GetxController {
@@ -20,7 +20,7 @@ class UserAuthViewModel extends GetxController {
     if (user == null) {
       Get.offAll(() => WelcomeView());
     } else {
-      Get.offAll(() => BeadsView());
+      Get.offAll(() => const HomeScreen());
     }
   }
 

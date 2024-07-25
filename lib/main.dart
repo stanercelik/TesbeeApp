@@ -25,19 +25,17 @@ class TesbeeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Obx(() {
-        if (userAuthController.firebaseUser.value == null) {
-          return WelcomeView();
-        } else {
-          return HomeScreen();
-        }
-      }),
+      home: const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
       getPages: [
         GetPage(name: Routes.welcomeScreen, page: () => WelcomeView()),
         GetPage(name: Routes.signInScreen, page: () => SignInView()),
         GetPage(name: Routes.signUpScreen, page: () => SignUpView()),
         GetPage(name: Routes.baseBeadScreen, page: () => BeadsView()),
-        GetPage(name: Routes.homeScreen, page: () => HomeScreen()),
+        GetPage(name: Routes.homeScreen, page: () => const HomeScreen()),
       ],
     );
   }

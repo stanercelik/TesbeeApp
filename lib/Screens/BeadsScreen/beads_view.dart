@@ -3,11 +3,13 @@ import 'package:get/get.dart';
 import 'package:tesbih_app/Components/draggable_cycle.dart';
 import 'package:tesbih_app/Resources/AppColors.dart';
 import 'package:tesbih_app/Resources/picker_colors.dart';
+import 'package:tesbih_app/Screens/Authflow/BaseAuth/base_auth_viewmodel.dart';
 import 'package:tesbih_app/Screens/BeadsScreen/beads_viewmodel.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class BeadsView extends StatelessWidget {
   final BeadsViewModel counterController = Get.put(BeadsViewModel());
+  final UserAuthViewModel authViewModel = Get.put(UserAuthViewModel());
 
   BeadsView({super.key});
 
@@ -28,11 +30,9 @@ class BeadsView extends StatelessWidget {
               );
             },
           ),
-          title: const Center(
-            child: Text(
-              'Tesbee',
-              style: TextStyle(fontSize: 24),
-            ),
+          title: const Text(
+            'Tesbee',
+            style: TextStyle(fontSize: 24),
           ),
         ),
         drawer: Drawer(
@@ -101,6 +101,13 @@ class BeadsView extends StatelessWidget {
                     counterController.changeBackgroundColor,
                     counterController.backgroundColor.value,
                   );
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.logout_rounded),
+                title: const Text('Sign Out'),
+                onTap: () {
+                  authViewModel.signOut();
                 },
               ),
             ],
