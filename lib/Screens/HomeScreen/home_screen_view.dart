@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final BeadsViewModel beadsViewModel = Get.put(BeadsViewModel());
 
   final List _pages = [
-    const DhikrView(),
+    DhikrView(),
     BeadsView(),
     const ProfileView(),
   ];
