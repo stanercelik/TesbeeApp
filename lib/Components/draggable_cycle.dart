@@ -13,8 +13,7 @@ class DraggableCircle extends StatelessWidget {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double circleRadius = MediaQuery.of(context).size.height * 0.035;
     final double movementAreaHeight = screenHeight * 0.15;
-    final double maxMovement =
-        movementAreaHeight * 0.47; // Maksimum hareket alanı
+    final double maxMovement = movementAreaHeight * 0.47;
 
     final List<Offset> initialPositions = List.generate(
       13,

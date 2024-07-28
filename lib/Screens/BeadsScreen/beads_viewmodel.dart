@@ -15,9 +15,9 @@ class BeadsViewModel extends GetxController {
 
   var currentText = "Subhanallah".obs;
 
-  var beadColor = pickerColors["darkorange"]!.obs;
-  var stringColor = pickerColors["gray"]!.obs;
-  var backgroundColor = pickerColors["dimgray"]!.obs;
+  var beadColor = premiumPickerColors["darkorange"]!.obs;
+  var stringColor = premiumPickerColors["gray"]!.obs;
+  var backgroundColor = premiumPickerColors["dimgray"]!.obs;
 
   var isVibration = true.obs;
   var isSoundEffect = true.obs;
