@@ -22,7 +22,7 @@ class AuthService {
     await _firebaseAuth.sendPasswordResetEmail(email: email);
   }
 
-  Future<void> signInAnonymusly() async {
+  Future<void> signInAnonymously() async {
     await _firebaseAuth.signInAnonymously();
   }
 

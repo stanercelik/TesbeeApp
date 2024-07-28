@@ -1,9 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:tesbih_app/Components/add_dhikr_color_picker_item.dart';
+import 'package:tesbih_app/Models/dhikr_model.dart';
 import 'package:tesbih_app/Screens/BeadsScreen/beads_viewmodel.dart';
-import 'package:tesbih_app/Screens/DhikrsScreen/dhikr_list_item_view.dart';
 import 'package:tesbih_app/Screens/DhikrsScreen/dhikrs_viewmodel.dart';
 import 'package:tesbih_app/Utils/color_utils.dart';
 
@@ -127,16 +128,19 @@ class AddDhikrBottomSheet extends StatelessWidget {
             child: Obx(
               () => ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: beadsViewModel.beadColor.value),
+                  backgroundColor: beadsViewModel.beadColor.value,
+                ),
                 onPressed: () {
                   if (dhikrsViewModel.validateAll()) {
-                    final newDhikr = DhikrListItemView(
+                    final newDhikr = Dhikr(
+                      id: '',
                       title: dhikrsViewModel.title.value,
-                      lastCount: '0',
-                      dhikrCount: dhikrsViewModel.totalCount.value,
-                      backgroundColor: dhikrsViewModel.backgroundColor.value,
                       beadsColor: dhikrsViewModel.beadColor.value,
                       stringColor: dhikrsViewModel.stringColor.value,
+                      backgroundColor: dhikrsViewModel.backgroundColor.value,
+                      totalCount: dhikrsViewModel.totalCount.value,
+                      lastCount: 0,
+                      timestamp: Timestamp.now(),
                     );
                     dhikrsViewModel.addDhikr(newDhikr);
                     dhikrsViewModel.backgroundColor.value =
@@ -153,7 +157,8 @@ class AddDhikrBottomSheet extends StatelessWidget {
                 child: Text(
                   'Add Dhikr',
                   style: TextStyle(
-                      color: getTextColor(beadsViewModel.beadColor.value)),
+                    color: getTextColor(beadsViewModel.beadColor.value),
+                  ),
                 ),
               ),
             ),

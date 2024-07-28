@@ -1,21 +1,63 @@
 import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tesbih_app/Models/dhikr_model.dart';
 import 'package:tesbih_app/Resources/picker_colors.dart';
-import 'dhikr_list_item_view.dart';
 
 class DhikrsViewModel extends GetxController {
   var beadColor = premiumPickerColors["darkorange"]!.obs;
   var stringColor = premiumPickerColors["gray"]!.obs;
   var backgroundColor = premiumPickerColors["dimgray"]!.obs;
 
-  var dhikrs = <DhikrListItemView>[].obs;
+  var dhikrs = <Dhikr>[].obs;
   var title = ''.obs;
   var totalCount = ''.obs;
 
   var titleError = ''.obs;
   var totalCountError = ''.obs;
 
-  void addDhikr(DhikrListItemView dhikr) {
+  @override
+  void onInit() {
+    super.onInit();
+    _fetchDhikrsFromFirestore();
+  }
+
+  void addDhikr(Dhikr dhikr) {
     dhikrs.add(dhikr);
+    _addDhikrToFirestore(dhikr);
+  }
+
+  Future<void> _addDhikrToFirestore(Dhikr dhikr) async {
+    User? user = FirebaseAuth.instance.currentUser;
+    String? uid = user?.uid;
+
+    if (uid != null) {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('dhikrs')
+          .add(dhikr.toMap());
+    }
+  }
+
+  Future<void> _fetchDhikrsFromFirestore() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    String? uid = user?.uid;
+
+    if (uid != null) {
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('dhikrs')
+          .orderBy('timestamp', descending: true)
+          .get();
+
+      final List<Dhikr> fetchedDhikrs = snapshot.docs.map((doc) {
+        return Dhikr.fromDocument(doc);
+      }).toList();
+
+      dhikrs.assignAll(fetchedDhikrs);
+    }
   }
 
   bool validateTitle() {

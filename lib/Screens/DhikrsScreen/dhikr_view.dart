@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tesbih_app/Screens/BeadsScreen/beads_viewmodel.dart';
+import 'package:tesbih_app/Screens/DhikrsScreen/dhikr_list_item_view.dart';
 import 'package:tesbih_app/Screens/DhikrsScreen/dhikrs_viewmodel.dart';
 import 'package:tesbih_app/Screens/DhikrsScreen/add_dhikr_bottom_sheet.dart';
 import 'package:tesbih_app/Utils/color_utils.dart';
@@ -36,16 +37,11 @@ class DhikrView extends StatelessWidget {
           ),
         ),
       ),
-      body: Obx(() => Column(
-            children: [
-              SizedBox(
-                child: ListView(
-                  scrollDirection: Axis.vertical,
-                  children:
-                      dhikrsViewModel.dhikrs.map((dhikr) => dhikr).toList(),
-                ),
-              )
-            ],
+      body: Obx(() => ListView(
+            scrollDirection: Axis.vertical,
+            children: dhikrsViewModel.dhikrs
+                .map((dhikr) => DhikrListItemView(dhikr: dhikr))
+                .toList(),
           )),
     );
   }

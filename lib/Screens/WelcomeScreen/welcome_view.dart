@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tesbih_app/Components/custom_button.dart';
 import 'package:tesbih_app/Screens/WelcomeScreen/welcome_viewmodel.dart';
-import 'package:tesbih_app/Utils/color_utils.dart';
 
 class WelcomeView extends StatelessWidget {
   WelcomeView({super.key});
@@ -16,14 +15,14 @@ class WelcomeView extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-              flex: 5,
+              flex: 8,
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: SizedBox(
                     child: Image.asset("assets/image/tesbee_image.png")),
               )),
           Expanded(
-              flex: 3,
+              flex: 7,
               child: Column(
                 children: [
                   const Text(
@@ -57,6 +56,18 @@ class WelcomeView extends StatelessWidget {
                         vertical: 28.0, horizontal: 16),
                     child: Column(
                       children: [
+                        CustomWideButton(
+                          onPressed: () {
+                            welcomeViewModel.signInAnonymously();
+                          },
+                          text: "Discover the app",
+                          backgroundColor: Colors.amber,
+                          foregroundColor: Colors.black,
+                          icon: Icons.person_outline_rounded,
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
                         CustomWideButton(
                           onPressed: () {
                             welcomeViewModel.navigateToSignIn();

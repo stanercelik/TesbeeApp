@@ -1,33 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:tesbih_app/Models/dhikr_model.dart';
 import 'package:tesbih_app/Utils/color_utils.dart';
 
 class DhikrListItemView extends StatelessWidget {
   const DhikrListItemView({
-    required this.title,
+    required this.dhikr,
     super.key,
-    required this.lastCount,
-    required this.dhikrCount,
-    required this.stringColor,
-    required this.beadsColor,
-    required this.backgroundColor,
   });
 
-  final String title;
-  final String lastCount;
-  final String dhikrCount;
-  final Color stringColor;
-  final Color beadsColor;
-  final Color backgroundColor;
+  final Dhikr dhikr;
 
   @override
   Widget build(BuildContext context) {
+    final backgroundColor = dhikr.backgroundColor;
+    final stringColor = dhikr.stringColor;
+    final beadsColor = dhikr.beadsColor;
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
         decoration: BoxDecoration(
-            color: backgroundColor,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: getTextColor(backgroundColor))),
+          color: backgroundColor,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: getTextColor(backgroundColor)),
+        ),
         height: MediaQuery.of(context).size.height * 0.15,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -40,25 +36,27 @@ class DhikrListItemView extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
-                      title,
+                      dhikr.title,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                          color: getTextColor(backgroundColor),
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600),
+                        color: getTextColor(backgroundColor),
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 14.0),
                     child: Text(
-                      "$lastCount/$dhikrCount",
+                      "${dhikr.lastCount}/${dhikr.totalCount}",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                          color: getTextColor(backgroundColor),
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400),
+                        color: getTextColor(backgroundColor),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   )
                 ],
@@ -101,10 +99,10 @@ class DhikrListItemView extends StatelessWidget {
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
