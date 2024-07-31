@@ -77,7 +77,7 @@ class DraggableCircle extends StatelessWidget {
             }
           },
           onPanEnd: (details) {
-            final double threshold = movementAreaHeight * 0.45;
+            final double threshold = movementAreaHeight * 0.2;
             if (counterController.offsetY.value > threshold) {
               counterController.offsetY.value = movementAreaHeight;
             }
