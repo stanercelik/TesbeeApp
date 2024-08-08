@@ -2,14 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Dhikr {
-  final String id;
-  final String title;
-  final Color beadsColor;
-  final Color stringColor;
-  final Color backgroundColor;
-  final String totalCount;
-  final int lastCount;
-  final Timestamp timestamp;
+  String id;
+  String title;
+  Color beadsColor;
+  Color stringColor;
+  Color backgroundColor;
+  String totalCount;
+  int lastCount;
+  Timestamp timestamp;
 
   Dhikr({
     required this.id,

@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../Screens/BeadsScreen/beads_viewmodel.dart';
+import 'package:tesbih_app/Screens/DraggableCycleView/draggable_cycle_view_model.dart';
 
 class DraggableCircle extends StatelessWidget {
-  final BeadsViewModel counterController;
+  final Color stringColor;
+  final Color beadColor;
+  final int totalCount;
+  final RxInt lastCount;
+  final DraggableCycleViewModel viewModel;
 
-  const DraggableCircle({super.key, required this.counterController});
+  const DraggableCircle({
+    super.key,
+    required this.stringColor,
+    required this.beadColor,
+    required this.totalCount,
+    required this.lastCount,
+    required this.viewModel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,35 +34,30 @@ class DraggableCircle extends StatelessWidget {
     return Stack(
       alignment: Alignment.center,
       children: [
-        Obx(() => Container(
-            width: 6,
-            height: screenHeight,
-            color: counterController.stringColor.value)),
+        Container(width: 6, height: screenHeight, color: stringColor),
         ...List.generate(8, (index) {
           return Obx(() {
             return Transform.translate(
               offset: Offset(
                   0,
                   initialPositions[index].dy +
-                      counterController.beadOffsets[index]
+                      viewModel.beadOffsets[index]
                           .clamp(-maxMovement, maxMovement)),
               child: CircleAvatar(
-                radius: circleRadius,
-                backgroundColor: counterController.beadColor.value,
-              ),
+                  radius: circleRadius, backgroundColor: beadColor),
             );
           });
         }),
         Obx(() => Transform.translate(
               offset: Offset(
                   0,
-                  counterController.offsetY.value.clamp(0, movementAreaHeight) +
+                  viewModel.offsetY.value.clamp(0, movementAreaHeight) +
                       initialPositions[8].dy +
-                      counterController.beadOffsets[8]
+                      viewModel.beadOffsets[8]
                           .clamp(-maxMovement, maxMovement)),
               child: CircleAvatar(
                 radius: circleRadius,
-                backgroundColor: counterController.beadColor.value,
+                backgroundColor: beadColor,
               ),
             )),
         ...List.generate(3, (index) {
@@ -61,30 +67,27 @@ class DraggableCircle extends StatelessWidget {
                   0,
                   initialPositions[index + 9].dy +
                       movementAreaHeight +
-                      counterController.beadOffsets[index + 8]
+                      viewModel.beadOffsets[index + 8]
                           .clamp(-maxMovement, maxMovement)),
               child: CircleAvatar(
-                radius: circleRadius,
-                backgroundColor: counterController.beadColor.value,
-              ),
+                  radius: circleRadius, backgroundColor: beadColor),
             );
           });
         }),
         GestureDetector(
           onPanUpdate: (details) {
             if (details.delta.dy > 0) {
-              counterController.updatePosition(details.delta.dy);
+              viewModel.updatePosition(details.delta.dy);
             }
           },
           onPanEnd: (details) {
             final double threshold = movementAreaHeight * 0.2;
-            if (counterController.offsetY.value > threshold) {
-              counterController.offsetY.value = movementAreaHeight;
+            if (viewModel.offsetY.value > threshold) {
+              viewModel.offsetY.value = movementAreaHeight;
             }
-            if (counterController.offsetY.value >
-                movementAreaHeight - circleRadius) {
-              counterController.increment();
-              counterController.resetPosition();
+            if (viewModel.offsetY.value > movementAreaHeight - circleRadius) {
+              viewModel.increment();
+              viewModel.resetPosition();
             }
           },
           child: Container(

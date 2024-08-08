@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tesbih_app/Screens/BeadsScreen/beads_view.dart';
 import 'package:tesbih_app/Screens/BeadsScreen/beads_viewmodel.dart';
-import 'package:tesbih_app/Screens/DhikrsScreen/dhikr_view.dart';
+import 'package:tesbih_app/Screens/DhikrsFlow/DhikrListScreen/dhikr_view.dart';
 import 'package:tesbih_app/Screens/ProfileScreen/profile_view.dart';
 import 'package:tesbih_app/Screens/HomeScreen/home_screen_viewmodel.dart';
 

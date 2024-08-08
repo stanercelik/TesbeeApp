@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tesbih_app/Components/draggable_cycle.dart';
 import 'package:tesbih_app/Screens/Authflow/BaseAuth/base_auth_viewmodel.dart';
 import 'package:tesbih_app/Screens/BeadsScreen/beads_viewmodel.dart';
+import 'package:tesbih_app/Screens/DraggableCycleView/draggable_cycle.dart';
 import 'package:tesbih_app/Utils/color_picker_utils.dart';
 import 'package:tesbih_app/Utils/color_utils.dart';
 
@@ -195,7 +195,13 @@ class BeadsView extends StatelessWidget {
             Positioned.fill(
               child: Align(
                 alignment: Alignment.center,
-                child: DraggableCircle(counterController: beadsViewModel),
+                child: DraggableCircle(
+                  stringColor: beadsViewModel.stringColor.value,
+                  beadColor: beadsViewModel.beadColor.value,
+                  totalCount: 99,
+                  lastCount: beadsViewModel.count,
+                  viewModel: beadsViewModel,
+                ),
               ),
             ),
             Positioned(
