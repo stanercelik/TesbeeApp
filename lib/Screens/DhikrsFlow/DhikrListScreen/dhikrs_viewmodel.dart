@@ -22,9 +22,73 @@ class DhikrsViewModel extends GetxController {
     _fetchDhikrsFromFirestore();
   }
 
-  void addDhikr(Dhikr dhikr) {
-    dhikrs.add(dhikr);
-    _addDhikrToFirestore(dhikr);
+  Future<void> addDhikr(Dhikr dhikr) async {
+    if (await canAddDhikr()) {
+      dhikrs.add(dhikr);
+      await _addDhikrToFirestore(dhikr);
+    } else {
+      Get.snackbar(
+        'Limit Reached',
+        'You cannot add more than 4 dhikrs.',
+        snackPosition: SnackPosition.TOP,
+      );
+    }
+  }
+
+  Future<void> deleteDhikr(Dhikr dhikr) async {
+    dhikrs.remove(dhikr);
+    await _deleteDhikrFromFirestore(dhikr);
+  }
+
+  Future<void> updateDhikr(Dhikr updatedDhikr) async {
+    User? user = FirebaseAuth.instance.currentUser;
+    String? uid = user?.uid;
+
+    if (uid != null) {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('dhikrs')
+          .doc(updatedDhikr.id)
+          .update(updatedDhikr.toMap());
+
+      int index = dhikrs.indexWhere((dhikr) => dhikr.id == updatedDhikr.id);
+      if (index != -1) {
+        dhikrs[index] = updatedDhikr;
+        dhikrs.refresh();
+      }
+    }
+  }
+
+  Future<void> _deleteDhikrFromFirestore(Dhikr dhikr) async {
+    User? user = FirebaseAuth.instance.currentUser;
+    String? uid = user?.uid;
+
+    if (uid != null) {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('dhikrs')
+          .doc(dhikr.id)
+          .delete();
+    }
+  }
+
+  Future<bool> canAddDhikr() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    String? uid = user?.uid;
+
+    if (uid != null) {
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('dhikrs')
+          .get();
+
+      return snapshot.docs.length < 5;
+    }
+
+    return false;
   }
 
   Future<void> _addDhikrToFirestore(Dhikr dhikr) async {

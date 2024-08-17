@@ -27,4 +27,9 @@ class AuthService {
   }
 
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
+
+  bool isAnonymousUser() {
+    final user = _firebaseAuth.currentUser;
+    return user != null && user.isAnonymous;
+  }
 }

@@ -9,14 +9,39 @@ import 'package:tesbih_app/Screens/DhikrsFlow/DhikrListScreen/dhikrs_viewmodel.d
 import 'package:tesbih_app/Utils/color_utils.dart';
 
 class AddDhikrBottomSheet extends StatelessWidget {
-  const AddDhikrBottomSheet({super.key});
+  final Dhikr? editDhikr;
+
+  const AddDhikrBottomSheet({super.key, this.editDhikr});
 
   @override
   Widget build(BuildContext context) {
     final DhikrsViewModel dhikrsViewModel = Get.put(DhikrsViewModel());
     final BeadsViewModel beadsViewModel = Get.find<BeadsViewModel>();
 
-    Color backgroundColor = beadsViewModel.backgroundColor.value;
+    // TextEditingController'ları widget'ların dışında tanımlıyoruz
+    final TextEditingController titleController = TextEditingController();
+    final TextEditingController totalCountController = TextEditingController();
+
+    // Initialize with existing data if editing
+    if (editDhikr != null) {
+      dhikrsViewModel.title.value = editDhikr!.title;
+      dhikrsViewModel.totalCount.value = editDhikr!.totalCount.toString();
+      dhikrsViewModel.beadColor.value = editDhikr!.beadsColor;
+      dhikrsViewModel.stringColor.value = editDhikr!.stringColor;
+      dhikrsViewModel.backgroundColor.value = editDhikr!.backgroundColor;
+
+      // TextEditingController'lara başlangıç metnini atıyoruz
+      titleController.text = dhikrsViewModel.title.value;
+      totalCountController.text = dhikrsViewModel.totalCount.value;
+    } else {
+      // Initialize with default colors if adding new
+      dhikrsViewModel.backgroundColor.value =
+          beadsViewModel.backgroundColor.value;
+      dhikrsViewModel.beadColor.value = beadsViewModel.beadColor.value;
+      dhikrsViewModel.stringColor.value = beadsViewModel.stringColor.value;
+    }
+
+    Color backgroundColor = dhikrsViewModel.backgroundColor.value;
     Color textColor = getTextColor(backgroundColor);
 
     return Container(
@@ -35,7 +60,10 @@ class AddDhikrBottomSheet extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Obx(
               () => TextField(
-                onChanged: (value) => dhikrsViewModel.title.value = value,
+                onChanged: (value) {
+                  dhikrsViewModel.title.value = value;
+                },
+                controller: titleController, // controller'ı burada kullanıyoruz
                 decoration: InputDecoration(
                   labelText: 'Dhikr Title',
                   labelStyle: TextStyle(color: textColor),
@@ -60,9 +88,13 @@ class AddDhikrBottomSheet extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Obx(
               () => TextField(
-                onChanged: (value) => dhikrsViewModel.totalCount.value = value,
+                onChanged: (value) {
+                  dhikrsViewModel.totalCount.value = value;
+                },
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                controller:
+                    totalCountController, // controller'ı burada kullanıyoruz
                 decoration: InputDecoration(
                   labelText: 'Targeted number of dhikr',
                   labelStyle: TextStyle(color: textColor),
@@ -132,30 +164,30 @@ class AddDhikrBottomSheet extends StatelessWidget {
                 ),
                 onPressed: () {
                   if (dhikrsViewModel.validateAll()) {
-                    final newDhikr = Dhikr(
-                      id: '',
+                    final updatedDhikr = Dhikr(
+                      id: editDhikr?.id ?? '',
                       title: dhikrsViewModel.title.value,
                       beadsColor: dhikrsViewModel.beadColor.value,
                       stringColor: dhikrsViewModel.stringColor.value,
                       backgroundColor: dhikrsViewModel.backgroundColor.value,
                       totalCount: dhikrsViewModel.totalCount.value,
-                      lastCount: 0,
+                      lastCount: editDhikr?.lastCount ?? 0,
                       timestamp: Timestamp.now(),
                     );
-                    dhikrsViewModel.addDhikr(newDhikr);
-                    dhikrsViewModel.backgroundColor.value =
-                        beadsViewModel.backgroundColor.value;
-                    dhikrsViewModel.beadColor.value =
-                        beadsViewModel.beadColor.value;
-                    dhikrsViewModel.stringColor.value =
-                        beadsViewModel.stringColor.value;
+
+                    if (editDhikr != null) {
+                      dhikrsViewModel.updateDhikr(updatedDhikr);
+                    } else {
+                      dhikrsViewModel.addDhikr(updatedDhikr);
+                    }
+
                     dhikrsViewModel.title.value = "";
                     dhikrsViewModel.totalCount.value = "";
                     Navigator.pop(context);
                   }
                 },
                 child: Text(
-                  'Add Dhikr',
+                  editDhikr != null ? 'Update Dhikr' : 'Add Dhikr',
                   style: TextStyle(
                     color: getTextColor(beadsViewModel.beadColor.value),
                   ),
