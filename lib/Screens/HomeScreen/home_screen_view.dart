@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:tesbih_app/Screens/BeadsScreen/beads_view.dart';
 import 'package:tesbih_app/Screens/BeadsScreen/beads_viewmodel.dart';
 import 'package:tesbih_app/Screens/DhikrsFlow/DhikrListScreen/dhikr_view.dart';
-import 'package:tesbih_app/Screens/ProfileScreen/profile_view.dart';
+
 import 'package:tesbih_app/Screens/HomeScreen/home_screen_viewmodel.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,7 +22,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final List _pages = [
     DhikrView(),
     BeadsView(),
-    const ProfileView(),
   ];
 
   @override
@@ -56,10 +55,6 @@ class _HomeScreenState extends State<HomeScreen> {
               BottomNavigationBarItem(
                 icon: Icon(Icons.ac_unit_rounded),
                 label: 'Tesbih',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person_rounded),
-                label: 'Profil',
               ),
             ],
             currentIndex: homeScreenController.selectedIndex.value,

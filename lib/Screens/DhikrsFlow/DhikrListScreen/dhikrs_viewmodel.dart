@@ -85,7 +85,7 @@ class DhikrsViewModel extends GetxController {
           .collection('dhikrs')
           .get();
 
-      return snapshot.docs.length < 5;
+      return snapshot.docs.length <= 5;
     }
 
     return false;

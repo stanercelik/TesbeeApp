@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tesbih_app/Constants/string_constants.dart';
 import 'package:tesbih_app/Resources/picker_colors.dart';
 import 'package:tesbih_app/Screens/DraggableCycleView/draggable_cycle_view_model.dart';
 
@@ -7,11 +8,7 @@ class BeadsViewModel extends DraggableCycleViewModel {
   @override
   var count = 0.obs;
 
-  var subanallah = "Subhanallah".obs;
-  var elhamdulillah = "Elhamdulillah".obs;
-  var allahuEkber = "Allahu ekber".obs;
-
-  var currentText = "Subhanallah".obs;
+  var currentText = StringConstants.subhanallahString.obs;
 
   var beadColor = premiumPickerColors["darkorange"]!.obs;
   var stringColor = premiumPickerColors["gray"]!.obs;
@@ -32,18 +29,18 @@ class BeadsViewModel extends DraggableCycleViewModel {
   void updateText() {
     soundAndVibrateExactValue();
     if (count < 33) {
-      currentText.value = subanallah.value;
+      currentText.value = StringConstants.subhanallahString;
     } else if (count < 66) {
-      currentText.value = elhamdulillah.value;
+      currentText.value = StringConstants.elhamdulillahString;
     } else if (count < 99) {
-      currentText.value = allahuEkber.value;
+      currentText.value = StringConstants.allahuekberString;
     }
   }
 
   @override
   void resetCounter() {
     count.value = 1;
-    currentText.value = subanallah.value;
+    currentText.value = StringConstants.subhanallahString;
     resetPosition();
   }
 

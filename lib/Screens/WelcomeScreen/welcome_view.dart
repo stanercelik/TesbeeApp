@@ -16,11 +16,8 @@ class WelcomeView extends StatelessWidget {
         children: [
           Expanded(
               flex: 8,
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: SizedBox(
-                    child: Image.asset("assets/image/tesbee_image.png")),
-              )),
+              child: SizedBox(
+                  child: Image.asset("assets/image/tesbee_image.png"))),
           Expanded(
               flex: 7,
               child: Column(
@@ -53,7 +50,7 @@ class WelcomeView extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 28.0, horizontal: 16),
+                        vertical: 16.0, horizontal: 16),
                     child: Column(
                       children: [
                         CustomWideButton(
@@ -78,7 +75,7 @@ class WelcomeView extends StatelessWidget {
                           icon: Icons.mail_rounded,
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 12.0),
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

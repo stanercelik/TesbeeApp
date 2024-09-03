@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 const Map<String, Color> standartPickerColors = {
   'black': Color(0xff000000),
-  'dimgray': Color.fromARGB(255, 39, 39, 39),
   'gray': Color(0xff808080),
   'silver': Color(0xffc0c0c0),
   'maroon': Color.fromARGB(255, 58, 0, 0),

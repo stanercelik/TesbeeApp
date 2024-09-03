@@ -26,7 +26,7 @@ class ColorPickerRow extends StatelessWidget {
           onColorChanged(selectedColor);
         }, color.value),
         child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.08,
+          height: MediaQuery.of(context).size.height * 0.1,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

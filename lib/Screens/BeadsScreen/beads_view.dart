@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tesbih_app/Constants/string_constants.dart';
 import 'package:tesbih_app/Screens/Authflow/BaseAuth/base_auth_viewmodel.dart';
 import 'package:tesbih_app/Screens/BeadsScreen/beads_viewmodel.dart';
 import 'package:tesbih_app/Screens/DraggableCycleView/draggable_cycle.dart';
@@ -32,7 +33,7 @@ class BeadsView extends StatelessWidget {
             },
           ),
           title: Text(
-            'Tesbee',
+            StringConstants.mainScreenAppTitle,
             style: TextStyle(
               fontSize: 24,
               color: getTextColor(beadsViewModel.backgroundColor.value),
@@ -53,7 +54,7 @@ class BeadsView extends StatelessWidget {
                     color: beadsViewModel.backgroundColor.value,
                   ),
                   child: Text(
-                    'Tesbih Ayarları',
+                    StringConstants.drawerTitle,
                     style: TextStyle(
                         color:
                             getTextColor(beadsViewModel.backgroundColor.value),
@@ -73,7 +74,7 @@ class BeadsView extends StatelessWidget {
                           color: getTextColor(beadsViewModel.beadColor.value))),
                 ),
                 title: Text(
-                  'Change beads color',
+                  StringConstants.drawerChangeBeadsColor,
                   style: TextStyle(
                     color: getTextColor(beadsViewModel.backgroundColor.value),
                   ),
@@ -99,7 +100,7 @@ class BeadsView extends StatelessWidget {
                               getTextColor(beadsViewModel.stringColor.value))),
                 ),
                 title: Text(
-                  'Change string color',
+                  StringConstants.drawerChangeStringColor,
                   style: TextStyle(
                     color: getTextColor(beadsViewModel.backgroundColor.value),
                   ),
@@ -125,7 +126,7 @@ class BeadsView extends StatelessWidget {
                               beadsViewModel.backgroundColor.value))),
                 ),
                 title: Text(
-                  'Change background color',
+                  StringConstants.drawerChangeBackgroundColor,
                   style: TextStyle(
                     color: getTextColor(beadsViewModel.backgroundColor.value),
                   ),
@@ -149,17 +150,17 @@ class BeadsView extends StatelessWidget {
                   },
                 ),
                 title: Text(
-                  'Vibration',
+                  StringConstants.drawerVibration,
                   style: TextStyle(
                     color: getTextColor(beadsViewModel.backgroundColor.value),
                   ),
                 ),
               ),
               ListTile(
-                leading: Icon(Icons.alarm_rounded,
+                leading: Icon(Icons.volume_up_rounded,
                     color: getTextColor(beadsViewModel.backgroundColor.value)),
                 title: Text(
-                  'Sound Effect',
+                  StringConstants.drawerSoundEffect,
                   style: TextStyle(
                     color: getTextColor(beadsViewModel.backgroundColor.value),
                   ),
@@ -178,7 +179,7 @@ class BeadsView extends StatelessWidget {
                   color: getTextColor(beadsViewModel.backgroundColor.value),
                 ),
                 title: Text(
-                  'Sign Out',
+                  StringConstants.drawerSignOut,
                   style: TextStyle(
                     color: getTextColor(beadsViewModel.backgroundColor.value),
                   ),

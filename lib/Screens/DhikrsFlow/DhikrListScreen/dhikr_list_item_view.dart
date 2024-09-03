@@ -1,8 +1,7 @@
-// ignore_for_file: sized_box_for_whitespace
-
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
+import 'package:tesbih_app/Constants/string_constants.dart';
 import 'package:tesbih_app/Models/dhikr_model.dart';
 import 'package:tesbih_app/Screens/DhikrsFlow/DhikrListScreen/add_dhikr_bottom_sheet.dart';
 import 'package:tesbih_app/Screens/DhikrsFlow/DhikrScreen/dhikr_beads_view.dart';
@@ -33,7 +32,7 @@ class DhikrListItemView extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Container(
+            child: SizedBox(
               height: context.height,
               width: context.width * 0.2,
               child: SlidableButton(
@@ -41,7 +40,7 @@ class DhikrListItemView extends StatelessWidget {
                 backgroundColor: Colors.blueAccent,
                 foregroundColor: Colors.white,
                 icon: Icons.edit,
-                label: 'Edit',
+                label: StringConstants.editDhikr,
                 borderRadius: BorderRadius.circular(16),
               ),
             ),
@@ -51,7 +50,7 @@ class DhikrListItemView extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Container(
+            child: SizedBox(
               height: context.height,
               width: context.width * 0.2,
               child: SlidableButton(
@@ -59,7 +58,7 @@ class DhikrListItemView extends StatelessWidget {
                 backgroundColor: Colors.redAccent,
                 foregroundColor: Colors.white,
                 icon: Icons.delete,
-                label: 'Delete',
+                label: StringConstants.deleteDhikr,
                 borderRadius: BorderRadius.circular(16),
               ),
             ),

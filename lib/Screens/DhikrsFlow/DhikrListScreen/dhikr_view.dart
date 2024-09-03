@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tesbih_app/Constants/string_constants.dart';
 import 'package:tesbih_app/Screens/BeadsScreen/beads_viewmodel.dart';
 import 'package:tesbih_app/Screens/DhikrsFlow/DhikrListScreen/add_dhikr_bottom_sheet.dart';
 import 'package:tesbih_app/Screens/DhikrsFlow/DhikrListScreen/dhikr_list_item_view.dart';
@@ -38,7 +39,7 @@ class DhikrView extends StatelessWidget {
         ],
         backgroundColor: beadsViewModel.backgroundColor.value,
         title: Text(
-          'Dhikrs',
+          StringConstants.dhikrsScreenTitle,
           style: TextStyle(
             fontSize: 24,
             color: getTextColor(beadsViewModel.backgroundColor.value),
@@ -89,19 +90,12 @@ class DhikrView extends StatelessWidget {
   }
 
   void _onAddDhikrPressed(BuildContext context) async {
-    if (authService.isAnonymousUser()) {
-      Get.snackbar(
-        'Sign in or Register',
-        'Sign in or Register to add dhikrs',
-        snackPosition: SnackPosition.BOTTOM,
-      );
-      Get.to(() => WelcomeView());
-    } else if (await dhikrsViewModel.canAddDhikr()) {
+    if (await dhikrsViewModel.canAddDhikr()) {
       _showAddDhikrBottomSheet(context);
     } else {
       Get.snackbar(
-        'Limit Reached',
-        'You cannot add more than 4 dhikrs.',
+        StringConstants.limitReached,
+        StringConstants.limitReachedText,
         snackPosition: SnackPosition.TOP,
       );
     }

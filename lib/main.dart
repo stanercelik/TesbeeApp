@@ -6,6 +6,7 @@ import 'package:tesbih_app/Screens/Authflow/BaseAuth/base_auth_viewmodel.dart';
 import 'package:tesbih_app/Screens/Authflow/SignInFlow/SignInScreen/signin_view.dart';
 import 'package:tesbih_app/Screens/Authflow/SignUpScreen/signup_view.dart';
 import 'package:tesbih_app/Screens/BeadsScreen/beads_view.dart';
+import 'package:tesbih_app/Screens/DhikrsFlow/DhikrListScreen/dhikrs_viewmodel.dart';
 import 'package:tesbih_app/Screens/HomeScreen/home_screen_view.dart';
 import 'package:tesbih_app/Screens/WelcomeScreen/welcome_view.dart';
 
@@ -13,6 +14,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   Get.put(UserAuthViewModel());
+  Get.put(DhikrsViewModel());
   runApp(TesbeeApp());
 }
 

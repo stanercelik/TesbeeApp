@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:tesbih_app/Components/add_dhikr_color_picker_item.dart';
+import 'package:tesbih_app/Constants/string_constants.dart';
 import 'package:tesbih_app/Models/dhikr_model.dart';
 import 'package:tesbih_app/Screens/BeadsScreen/beads_viewmodel.dart';
 import 'package:tesbih_app/Screens/DhikrsFlow/DhikrListScreen/dhikrs_viewmodel.dart';
@@ -18,11 +19,9 @@ class AddDhikrBottomSheet extends StatelessWidget {
     final DhikrsViewModel dhikrsViewModel = Get.put(DhikrsViewModel());
     final BeadsViewModel beadsViewModel = Get.find<BeadsViewModel>();
 
-    // TextEditingController'ları widget'ların dışında tanımlıyoruz
     final TextEditingController titleController = TextEditingController();
     final TextEditingController totalCountController = TextEditingController();
 
-    // Initialize with existing data if editing
     if (editDhikr != null) {
       dhikrsViewModel.title.value = editDhikr!.title;
       dhikrsViewModel.totalCount.value = editDhikr!.totalCount.toString();
@@ -30,11 +29,9 @@ class AddDhikrBottomSheet extends StatelessWidget {
       dhikrsViewModel.stringColor.value = editDhikr!.stringColor;
       dhikrsViewModel.backgroundColor.value = editDhikr!.backgroundColor;
 
-      // TextEditingController'lara başlangıç metnini atıyoruz
       titleController.text = dhikrsViewModel.title.value;
       totalCountController.text = dhikrsViewModel.totalCount.value;
     } else {
-      // Initialize with default colors if adding new
       dhikrsViewModel.backgroundColor.value =
           beadsViewModel.backgroundColor.value;
       dhikrsViewModel.beadColor.value = beadsViewModel.beadColor.value;
@@ -63,12 +60,12 @@ class AddDhikrBottomSheet extends StatelessWidget {
                 onChanged: (value) {
                   dhikrsViewModel.title.value = value;
                 },
-                controller: titleController, // controller'ı burada kullanıyoruz
+                controller: titleController,
                 decoration: InputDecoration(
-                  labelText: 'Dhikr Title',
+                  labelText: StringConstants.addDhikrTitle,
                   labelStyle: TextStyle(color: textColor),
                   hintStyle: TextStyle(color: textColor.withOpacity(0.3)),
-                  hintText: "Enter your dhikr's title",
+                  hintText: StringConstants.addDhikrTitleHint,
                   errorText: dhikrsViewModel.titleError.value.isNotEmpty
                       ? dhikrsViewModel.titleError.value
                       : null,
@@ -93,13 +90,12 @@ class AddDhikrBottomSheet extends StatelessWidget {
                 },
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                controller:
-                    totalCountController, // controller'ı burada kullanıyoruz
+                controller: totalCountController,
                 decoration: InputDecoration(
-                  labelText: 'Targeted number of dhikr',
+                  labelText: StringConstants.addDhikrTargetNum,
                   labelStyle: TextStyle(color: textColor),
                   hintStyle: TextStyle(color: textColor.withOpacity(0.3)),
-                  hintText: "Enter the targeted number of your dhikr",
+                  hintText: StringConstants.addDhikrTargetNumHint,
                   errorText: dhikrsViewModel.totalCountError.value.isNotEmpty
                       ? dhikrsViewModel.totalCountError.value
                       : null,
@@ -116,13 +112,14 @@ class AddDhikrBottomSheet extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 16.0),
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
+                  flex: 1,
                   child: ColorPickerRow(
-                    text: "Beads Color",
+                    text: StringConstants.addDhikrBeadsColor,
                     color: dhikrsViewModel.beadColor,
                     onColorChanged: (color) {
                       dhikrsViewModel.beadColor.value = color;
@@ -130,10 +127,10 @@ class AddDhikrBottomSheet extends StatelessWidget {
                     textColor: getTextColor(backgroundColor),
                   ),
                 ),
-                const SizedBox(width: 8),
                 Expanded(
+                  flex: 1,
                   child: ColorPickerRow(
-                    text: "String Color",
+                    text: StringConstants.addDhikrStringColor,
                     color: dhikrsViewModel.stringColor,
                     onColorChanged: (color) {
                       dhikrsViewModel.stringColor.value = color;
@@ -141,10 +138,10 @@ class AddDhikrBottomSheet extends StatelessWidget {
                     textColor: getTextColor(backgroundColor),
                   ),
                 ),
-                const SizedBox(width: 8),
                 Expanded(
+                  flex: 1,
                   child: ColorPickerRow(
-                    text: "Background Color",
+                    text: StringConstants.addDhikrBackgroundColor,
                     color: dhikrsViewModel.backgroundColor,
                     onColorChanged: (color) {
                       dhikrsViewModel.backgroundColor.value = color;
@@ -187,7 +184,9 @@ class AddDhikrBottomSheet extends StatelessWidget {
                   }
                 },
                 child: Text(
-                  editDhikr != null ? 'Update Dhikr' : 'Add Dhikr',
+                  editDhikr != null
+                      ? StringConstants.editDhikrButton
+                      : StringConstants.addDhikrButton,
                   style: TextStyle(
                     color: getTextColor(beadsViewModel.beadColor.value),
                   ),
