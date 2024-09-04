@@ -43,6 +43,7 @@ dependencies:
   flutter_slidable: ^3.1.1
   image_picker: ^1.0.8
   cloud_firestore: ^4.14.0
+  google_mobile_ads: ^4.0.0
   
 
 dev_dependencies:

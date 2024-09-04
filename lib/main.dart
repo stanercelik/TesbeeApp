@@ -9,10 +9,12 @@ import 'package:tesbih_app/Screens/BeadsScreen/beads_view.dart';
 import 'package:tesbih_app/Screens/DhikrsFlow/DhikrListScreen/dhikrs_viewmodel.dart';
 import 'package:tesbih_app/Screens/HomeScreen/home_screen_view.dart';
 import 'package:tesbih_app/Screens/WelcomeScreen/welcome_view.dart';
+import 'package:tesbih_app/Services/ad_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await Get.putAsync(() => AdService().init());
   Get.put(UserAuthViewModel());
   Get.put(DhikrsViewModel());
   runApp(TesbeeApp());

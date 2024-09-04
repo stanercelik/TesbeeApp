@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tesbih_app/Components/custom_button.dart';
 import 'package:tesbih_app/Components/custom_textfield.dart';
-import 'package:tesbih_app/Resources/AppColors.dart';
+import 'package:tesbih_app/Resources/app_colors.dart';
 
 class BaseAuthScreen extends StatelessWidget {
   final String title;

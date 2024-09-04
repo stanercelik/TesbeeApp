@@ -7,6 +7,7 @@ import 'package:tesbih_app/Constants/string_constants.dart';
 import 'package:tesbih_app/Models/dhikr_model.dart';
 import 'package:tesbih_app/Screens/BeadsScreen/beads_viewmodel.dart';
 import 'package:tesbih_app/Screens/DhikrsFlow/DhikrListScreen/dhikrs_viewmodel.dart';
+import 'package:tesbih_app/Services/ad_service.dart';
 import 'package:tesbih_app/Utils/color_utils.dart';
 
 class AddDhikrBottomSheet extends StatelessWidget {
@@ -18,6 +19,7 @@ class AddDhikrBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final DhikrsViewModel dhikrsViewModel = Get.put(DhikrsViewModel());
     final BeadsViewModel beadsViewModel = Get.find<BeadsViewModel>();
+    final AdService adService = Get.put(AdService());
 
     final TextEditingController titleController = TextEditingController();
     final TextEditingController totalCountController = TextEditingController();
@@ -180,6 +182,7 @@ class AddDhikrBottomSheet extends StatelessWidget {
 
                     dhikrsViewModel.title.value = "";
                     dhikrsViewModel.totalCount.value = "";
+                    adService.showInterstitialAd();
                     Navigator.pop(context);
                   }
                 },

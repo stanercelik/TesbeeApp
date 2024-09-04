@@ -5,9 +5,6 @@ import 'package:tesbih_app/Resources/picker_colors.dart';
 import 'package:tesbih_app/Screens/DraggableCycleView/draggable_cycle_view_model.dart';
 
 class BeadsViewModel extends DraggableCycleViewModel {
-  @override
-  var count = 0.obs;
-
   var currentText = StringConstants.subhanallahString.obs;
 
   var beadColor = premiumPickerColors["darkorange"]!.obs;

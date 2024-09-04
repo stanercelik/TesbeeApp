@@ -12,6 +12,7 @@ class DhikrBeadsViewModel extends DraggableCycleViewModel {
   }
 
   var lastCount = 0.obs;
+  var isComplete = false.obs; // New observable to track completion state
 
   @override
   void increment() {
@@ -21,7 +22,7 @@ class DhikrBeadsViewModel extends DraggableCycleViewModel {
       dhikr.lastCount = lastCount.value;
       updateLastCountInFirestore();
     } else {
-      resetCounter();
+      isComplete.value = true; // Set complete state to true
     }
     updateText();
   }
@@ -30,6 +31,7 @@ class DhikrBeadsViewModel extends DraggableCycleViewModel {
   void resetCounter() {
     lastCount.value = 1;
     dhikr.lastCount = 1;
+    isComplete.value = false; // Reset complete state
     updateLastCountInFirestore();
     resetPosition();
   }
@@ -46,5 +48,10 @@ class DhikrBeadsViewModel extends DraggableCycleViewModel {
           .doc(dhikr.id)
           .update({'lastCount': dhikr.lastCount});
     }
+  }
+
+  // Add delete method to handle dhikr deletion
+  void deleteDhikr() {
+    // Implement the deletion logic here
   }
 }

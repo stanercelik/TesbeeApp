@@ -28,12 +28,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(() {
-        print("Selected index: ${homeScreenController.selectedIndex.value}");
         return _pages[homeScreenController.selectedIndex.value];
       }),
       bottomNavigationBar: Obx(() {
-        print(
-            "BottomNavigationBar rebuild with index: ${homeScreenController.selectedIndex.value}");
         return Container(
           decoration: BoxDecoration(
             boxShadow: [
