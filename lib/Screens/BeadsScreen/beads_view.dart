@@ -16,9 +16,14 @@ class BeadsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Get screen size
+    final screenSize = MediaQuery.of(context).size;
+    final double padding =
+        screenSize.width * 0.05; // 5% of screen width as padding
+
     return Obx(
       () => Scaffold(
-        backgroundColor: beadsViewModel.backgroundColor.value,
+        backgroundColor: AppColors.primaryBackground,
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: AppColors.primaryBackground,
@@ -26,7 +31,7 @@ class BeadsView extends StatelessWidget {
             builder: (context) {
               return IconButton(
                 icon: const Icon(Icons.menu),
-                color: getTextColor(beadsViewModel.backgroundColor.value),
+                color: getTextColor(AppColors.primaryBackground),
                 onPressed: () {
                   Scaffold.of(context).openDrawer();
                 },
@@ -36,7 +41,7 @@ class BeadsView extends StatelessWidget {
           title: Text(
             StringConstants.mainScreenAppTitle,
             style: TextStyle(
-              fontSize: 24,
+              fontSize: screenSize.width * 0.06, // 6% of screen width
               color: getTextColor(AppColors.primaryBackground),
             ),
           ),
@@ -47,9 +52,9 @@ class BeadsView extends StatelessWidget {
             padding: EdgeInsets.zero,
             children: <Widget>[
               SizedBox(
-                height: 160,
+                height: screenSize.height * 0.2, // 20% of screen height
                 child: DrawerHeader(
-                  padding: const EdgeInsets.all(16),
+                  padding: EdgeInsets.all(padding),
                   decoration: BoxDecoration(
                     boxShadow: const [BoxShadow(color: Colors.black)],
                     color: AppColors.primaryBackground,
@@ -57,29 +62,16 @@ class BeadsView extends StatelessWidget {
                   child: Text(
                     StringConstants.drawerTitle,
                     style: TextStyle(
-                        color:
-                            getTextColor(beadsViewModel.backgroundColor.value),
-                        fontSize: 25),
+                      color: getTextColor(AppColors.primaryBackground),
+                      fontSize: screenSize.width * 0.07, // 7% of screen width
+                    ),
                   ),
                 ),
               ),
-              ListTile(
-                leading: Container(
-                  height: 30,
-                  width: 30,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: beadsViewModel.beadColor.value,
-                      border: Border.all(
-                          width: 1,
-                          color: getTextColor(beadsViewModel.beadColor.value))),
-                ),
-                title: Text(
-                  StringConstants.drawerChangeBeadsColor,
-                  style: TextStyle(
-                    color: getTextColor(beadsViewModel.backgroundColor.value),
-                  ),
-                ),
+              _buildListTile(
+                context: context,
+                title: StringConstants.drawerChangeBeadsColor,
+                color: beadsViewModel.beadColor.value,
                 onTap: () {
                   showColorPicker(
                     context,
@@ -88,24 +80,10 @@ class BeadsView extends StatelessWidget {
                   );
                 },
               ),
-              ListTile(
-                leading: Container(
-                  height: 30,
-                  width: 30,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: beadsViewModel.stringColor.value,
-                      border: Border.all(
-                          width: 1,
-                          color:
-                              getTextColor(beadsViewModel.stringColor.value))),
-                ),
-                title: Text(
-                  StringConstants.drawerChangeStringColor,
-                  style: TextStyle(
-                    color: getTextColor(beadsViewModel.backgroundColor.value),
-                  ),
-                ),
+              _buildListTile(
+                context: context,
+                title: StringConstants.drawerChangeStringColor,
+                color: beadsViewModel.stringColor.value,
                 onTap: () {
                   showColorPicker(
                     context,
@@ -114,83 +92,35 @@ class BeadsView extends StatelessWidget {
                   );
                 },
               ),
-              ListTile(
-                leading: Container(
-                  height: 30,
-                  width: 30,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: beadsViewModel.backgroundColor.value,
-                      border: Border.all(
-                          width: 1,
-                          color: getTextColor(
-                              beadsViewModel.backgroundColor.value))),
-                ),
-                title: Text(
-                  StringConstants.drawerChangeBackgroundColor,
-                  style: TextStyle(
-                    color: getTextColor(beadsViewModel.backgroundColor.value),
-                  ),
-                ),
-                onTap: () {
-                  showColorPicker(
-                    context,
-                    beadsViewModel.changeBackgroundColor,
-                    beadsViewModel.backgroundColor.value,
-                  );
-                },
+              _buildSwitchTile(
+                context: context,
+                icon: Icons.vibration_rounded,
+                title: StringConstants.drawerVibration,
+                value: beadsViewModel.isVibration.value,
+                onChanged: beadsViewModel.toggleVibration,
+                activeColor: beadsViewModel.beadColor.value,
               ),
-              ListTile(
-                leading: Icon(Icons.vibration_rounded,
-                    color: getTextColor(beadsViewModel.backgroundColor.value)),
-                trailing: Switch(
-                  activeColor: beadsViewModel.beadColor.value,
-                  value: beadsViewModel.isVibration.value,
-                  onChanged: (bool newValue) {
-                    beadsViewModel.isVibration.value = newValue;
-                  },
-                ),
-                title: Text(
-                  StringConstants.drawerVibration,
-                  style: TextStyle(
-                    color: getTextColor(beadsViewModel.backgroundColor.value),
-                  ),
-                ),
-              ),
-              ListTile(
-                leading: Icon(Icons.volume_up_rounded,
-                    color: getTextColor(beadsViewModel.backgroundColor.value)),
-                title: Text(
-                  StringConstants.drawerSoundEffect,
-                  style: TextStyle(
-                    color: getTextColor(beadsViewModel.backgroundColor.value),
-                  ),
-                ),
-                trailing: Switch(
-                  activeColor: beadsViewModel.beadColor.value,
-                  value: beadsViewModel.isSoundEffect.value,
-                  onChanged: (bool newValue) {
-                    beadsViewModel.isSoundEffect.value = newValue;
-                  },
-                ),
+              _buildSwitchTile(
+                context: context,
+                icon: Icons.volume_up_rounded,
+                title: StringConstants.drawerSoundEffect,
+                value: beadsViewModel.isSoundEffect.value,
+                onChanged: beadsViewModel.toggleSoundEffect,
+                activeColor: beadsViewModel.beadColor.value,
               ),
               authViewModel.isUserSignedIn()
                   ? ListTile(
                       leading: Icon(
                         Icons.logout_rounded,
-                        color:
-                            getTextColor(beadsViewModel.backgroundColor.value),
+                        color: getTextColor(AppColors.primaryBackground),
                       ),
                       title: Text(
                         StringConstants.drawerSignOut,
                         style: TextStyle(
-                          color: getTextColor(
-                              beadsViewModel.backgroundColor.value),
+                          color: getTextColor(AppColors.primaryBackground),
                         ),
                       ),
-                      onTap: () {
-                        authViewModel.signOut();
-                      },
+                      onTap: authViewModel.signOut,
                     )
                   : const SizedBox.shrink()
             ],
@@ -205,7 +135,7 @@ class BeadsView extends StatelessWidget {
                   stringColor: beadsViewModel.stringColor.value,
                   beadColor: beadsViewModel.beadColor.value,
                   totalCount: 99,
-                  lastCount: beadsViewModel.count,
+                  lastCount: beadsViewModel.lastCount,
                   viewModel: beadsViewModel,
                 ),
               ),
@@ -216,16 +146,14 @@ class BeadsView extends StatelessWidget {
               right: 0,
               child: Obx(
                 () => Container(
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  width: MediaQuery.of(context).size.width,
+                  height: screenSize.height * 0.1, // 10% of screen height
+                  width: screenSize.width,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        invertColor(getTextColor(
-                                beadsViewModel.backgroundColor.value))
+                        invertColor(getTextColor(AppColors.primaryBackground))
                             .withOpacity(0.7),
-                        invertColor(getTextColor(
-                                beadsViewModel.backgroundColor.value))
+                        invertColor(getTextColor(AppColors.primaryBackground))
                             .withAlpha(0),
                       ],
                       begin: Alignment.topCenter,
@@ -233,24 +161,27 @@ class BeadsView extends StatelessWidget {
                     ),
                   ),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        '${beadsViewModel.count}',
+                        '${beadsViewModel.lastCount}',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 32,
-                            color: getTextColor(
-                                beadsViewModel.backgroundColor.value),
-                            fontWeight: FontWeight.w600),
+                          fontSize:
+                              screenSize.width * 0.08, // 8% of screen width
+                          color: getTextColor(AppColors.primaryBackground),
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                       Text(
                         beadsViewModel.currentText.value,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 24,
-                            color: getTextColor(
-                                beadsViewModel.backgroundColor.value),
-                            fontWeight: FontWeight.w400),
+                          fontSize:
+                              screenSize.width * 0.06, // 6% of screen width
+                          color: getTextColor(AppColors.primaryBackground),
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ],
                   ),
@@ -258,6 +189,61 @@ class BeadsView extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  // Helper method to create a list tile for color change
+  Widget _buildListTile({
+    required BuildContext context,
+    required String title,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
+    return ListTile(
+      leading: Container(
+        height: 30,
+        width: 30,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: color,
+          border: Border.all(
+            width: 1,
+            color: getTextColor(color),
+          ),
+        ),
+      ),
+      title: Text(
+        title,
+        style: TextStyle(
+          color: getTextColor(AppColors.primaryBackground),
+        ),
+      ),
+      onTap: onTap,
+    );
+  }
+
+  // Helper method to create a switch tile
+  Widget _buildSwitchTile({
+    required BuildContext context,
+    required IconData icon,
+    required String title,
+    required bool value,
+    required Function(bool) onChanged,
+    required Color activeColor,
+  }) {
+    return ListTile(
+      leading: Icon(icon, color: getTextColor(AppColors.primaryBackground)),
+      trailing: Switch(
+        activeColor: activeColor,
+        value: value,
+        onChanged: onChanged,
+      ),
+      title: Text(
+        title,
+        style: TextStyle(
+          color: getTextColor(AppColors.primaryBackground),
         ),
       ),
     );

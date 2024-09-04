@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tesbih_app/Screens/HomeScreen/home_screen_view.dart';
@@ -30,5 +31,9 @@ class UserAuthViewModel extends GetxController {
 
   void signOut() async {
     await auth.signOut();
+  }
+
+  Future<String> loadMarkdownFile(String path) async {
+    return await rootBundle.loadString(path);
   }
 }

@@ -56,7 +56,7 @@ class DhikrView extends StatelessWidget {
                   text: 'Zikir oluşturmak için\n',
                   style: TextStyle(
                     fontSize: 14,
-                    color: getTextColor(beadsViewModel.backgroundColor.value)
+                    color: getTextColor(AppColors.primaryBackground)
                         .withOpacity(0.4),
                   ),
                   children: [
@@ -65,9 +65,8 @@ class DhikrView extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
-                        color:
-                            getTextColor(beadsViewModel.backgroundColor.value)
-                                .withOpacity(0.8),
+                        color: getTextColor(AppColors.primaryBackground)
+                            .withOpacity(0.8),
                       ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {

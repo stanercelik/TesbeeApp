@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:get/get.dart';
 import 'package:tesbih_app/Components/custom_button.dart';
 import 'package:tesbih_app/Components/custom_textfield.dart';
 import 'package:tesbih_app/Resources/app_colors.dart';
+import 'package:tesbih_app/Screens/Authflow/BaseAuth/base_auth_viewmodel.dart';
 
 class BaseAuthScreen extends StatelessWidget {
   final String title;
@@ -36,6 +38,8 @@ class BaseAuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final UserAuthViewModel baseAuthViewModel = Get.put(UserAuthViewModel());
+
     return Scaffold(
       backgroundColor: AppColors.primaryBackground,
       appBar: AppBar(
@@ -136,21 +140,22 @@ class BaseAuthScreen extends StatelessWidget {
                           fontSize: 14, color: AppColors.secondaryText),
                     ),
                     GestureDetector(
-                      onTap: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                              content: Text('Gizlilik Politikası tapped')),
-                        );
+                      onTap: () async {
+                        String markdownData = await baseAuthViewModel
+                            .loadMarkdownFile('assets/privacy_policy.md');
+                        _showMarkdownDialog(
+                            context, 'Gizlilik Politikası', markdownData);
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 4.0),
                         child: Text(
                           'Gizlilik Politikamızı',
                           style: TextStyle(
-                              fontSize: 14,
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w600,
-                              decoration: TextDecoration.underline),
+                            fontSize: 14,
+                            color: AppColors.primaryText,
+                            fontWeight: FontWeight.w600,
+                            decoration: TextDecoration.underline,
+                          ),
                         ),
                       ),
                     ),
@@ -160,19 +165,20 @@ class BaseAuthScreen extends StatelessWidget {
                           fontSize: 14, color: AppColors.secondaryText),
                     ),
                     GestureDetector(
-                      onTap: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                              content: Text('Kullanım Şartları tapped')),
-                        );
+                      onTap: () async {
+                        String markdownData = await baseAuthViewModel
+                            .loadMarkdownFile('assets/terms_and_conditions.md');
+                        _showMarkdownDialog(
+                            context, 'Kullanım Şartları', markdownData);
                       },
                       child: Text(
                         'Kullanım Şartlarımızı',
                         style: TextStyle(
-                            fontSize: 14,
-                            color: AppColors.primaryText,
-                            fontWeight: FontWeight.w600,
-                            decoration: TextDecoration.underline),
+                          fontSize: 14,
+                          color: AppColors.primaryText,
+                          fontWeight: FontWeight.w600,
+                          decoration: TextDecoration.underline,
+                        ),
                       ),
                     ),
                     Text(
@@ -187,6 +193,32 @@ class BaseAuthScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  void _showMarkdownDialog(
+      BuildContext context, String title, String markdownData) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(title),
+          content: SizedBox(
+            width: double.maxFinite,
+            child: SingleChildScrollView(
+              child: MarkdownBody(data: markdownData),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Kapat'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

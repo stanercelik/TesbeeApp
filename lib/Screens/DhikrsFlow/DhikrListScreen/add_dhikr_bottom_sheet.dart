@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:tesbih_app/Components/add_dhikr_color_picker_item.dart';
 import 'package:tesbih_app/Constants/string_constants.dart';
 import 'package:tesbih_app/Models/dhikr_model.dart';
+import 'package:tesbih_app/Resources/app_colors.dart';
 import 'package:tesbih_app/Screens/BeadsScreen/beads_viewmodel.dart';
 import 'package:tesbih_app/Screens/DhikrsFlow/DhikrListScreen/dhikrs_viewmodel.dart';
 import 'package:tesbih_app/Services/ad_service.dart';
@@ -37,8 +38,7 @@ class AddDhikrBottomSheet extends StatelessWidget {
       totalCountController.text = dhikrsViewModel.totalCount.value;
       prayController.text = dhikrsViewModel.pray.value;
     } else {
-      dhikrsViewModel.backgroundColor.value =
-          beadsViewModel.backgroundColor.value;
+      dhikrsViewModel.backgroundColor.value = AppColors.primaryBackground;
       dhikrsViewModel.beadColor.value = beadsViewModel.beadColor.value;
       dhikrsViewModel.stringColor.value = beadsViewModel.stringColor.value;
     }

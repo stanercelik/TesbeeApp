@@ -3,7 +3,7 @@ import 'package:vibration/vibration.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 class DraggableCycleViewModel extends GetxController {
-  var count = 0.obs;
+  var lastCount = 0.obs;
   var offsetY = 0.0.obs;
   var beadOffsets = List<double>.filled(13, 0.0).obs;
 
@@ -12,7 +12,7 @@ class DraggableCycleViewModel extends GetxController {
 
   void increment() {
     playSoundAndVibrate();
-    count.value++;
+    lastCount.value++;
   }
 
   void playSoundAndVibrate() {
@@ -33,7 +33,7 @@ class DraggableCycleViewModel extends GetxController {
   }
 
   void soundAndVibrateExactValue() {
-    switch (count.value) {
+    switch (lastCount.value) {
       case 33:
         playSound(isSoundEffect.value);
         _vibrate([0, 300, 0, 0], isVibration.value);
@@ -56,7 +56,7 @@ class DraggableCycleViewModel extends GetxController {
   }
 
   void resetCounter() {
-    count.value = 1;
+    lastCount.value = 1;
     resetPosition();
   }
 
