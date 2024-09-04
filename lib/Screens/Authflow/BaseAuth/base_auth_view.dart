@@ -37,14 +37,14 @@ class BaseAuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.primaryBackground,
       appBar: AppBar(
         toolbarHeight: 80,
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.primaryBackground,
         leading: IconButton(
           padding: const EdgeInsets.only(top: 40),
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios,
             color: AppColors.primaryText,
             size: 20,
@@ -62,7 +62,7 @@ class BaseAuthScreen extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: const TextStyle(
+                style: TextStyle(
                     color: AppColors.primaryText,
                     fontSize: 32,
                     fontWeight: FontWeight.w600),
@@ -70,7 +70,7 @@ class BaseAuthScreen extends StatelessWidget {
               const SizedBox(height: 8),
               Text(
                 subtitle,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 16,
                   color: AppColors.secondaryText,
                 ),
@@ -117,9 +117,8 @@ class BaseAuthScreen extends StatelessWidget {
                     onPressed:
                         isAllValid && !isLoading.value ? onButtonPressed : null,
                     text: buttonText,
-                    backgroundColor: isAllValid
-                        ? const Color.fromARGB(255, 203, 153, 2)
-                        : Colors.grey,
+                    backgroundColor:
+                        isAllValid ? AppColors.primaryButton : Colors.grey,
                     foregroundColor: Colors.white,
                     isLoading: isLoading.value,
                   );
@@ -130,8 +129,8 @@ class BaseAuthScreen extends StatelessWidget {
                 child: Wrap(
                   alignment: WrapAlignment.center,
                   children: [
-                    const Text(
-                      'Devam ederek,',
+                    Text(
+                      'Devam ederek',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 14, color: AppColors.secondaryText),
@@ -143,8 +142,8 @@ class BaseAuthScreen extends StatelessWidget {
                               content: Text('Gizlilik Politikası tapped')),
                         );
                       },
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 4.0),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
                         child: Text(
                           'Gizlilik Politikamızı',
                           style: TextStyle(
@@ -155,7 +154,7 @@ class BaseAuthScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const Text(
+                    Text(
                       ' ve ',
                       style: TextStyle(
                           fontSize: 14, color: AppColors.secondaryText),
@@ -167,7 +166,7 @@ class BaseAuthScreen extends StatelessWidget {
                               content: Text('Kullanım Şartları tapped')),
                         );
                       },
-                      child: const Text(
+                      child: Text(
                         'Kullanım Şartlarımızı',
                         style: TextStyle(
                             fontSize: 14,
@@ -176,20 +175,12 @@ class BaseAuthScreen extends StatelessWidget {
                             decoration: TextDecoration.underline),
                       ),
                     ),
-                    const Text(
+                    Text(
                       ' kabul etmiş olursunuz.',
                       style: TextStyle(
                           fontSize: 14, color: AppColors.secondaryText),
                     ),
                   ],
-                ),
-              ),
-              const SizedBox(height: 16),
-              Center(
-                child: IconButton(
-                  icon: const Icon(Icons.fingerprint, size: 32),
-                  onPressed: onBiometricAuthPressed,
-                  color: AppColors.primaryText,
                 ),
               ),
             ],

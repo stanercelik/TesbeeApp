@@ -23,16 +23,19 @@ class AddDhikrBottomSheet extends StatelessWidget {
 
     final TextEditingController titleController = TextEditingController();
     final TextEditingController totalCountController = TextEditingController();
+    final TextEditingController prayController = TextEditingController();
 
     if (editDhikr != null) {
       dhikrsViewModel.title.value = editDhikr!.title;
       dhikrsViewModel.totalCount.value = editDhikr!.totalCount.toString();
+      dhikrsViewModel.pray.value = editDhikr!.pray;
       dhikrsViewModel.beadColor.value = editDhikr!.beadsColor;
       dhikrsViewModel.stringColor.value = editDhikr!.stringColor;
       dhikrsViewModel.backgroundColor.value = editDhikr!.backgroundColor;
 
       titleController.text = dhikrsViewModel.title.value;
       totalCountController.text = dhikrsViewModel.totalCount.value;
+      prayController.text = dhikrsViewModel.pray.value;
     } else {
       dhikrsViewModel.backgroundColor.value =
           beadsViewModel.backgroundColor.value;
@@ -114,6 +117,36 @@ class AddDhikrBottomSheet extends StatelessWidget {
             ),
           ),
           Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Obx(
+              () => TextField(
+                onChanged: (value) {
+                  dhikrsViewModel.pray.value = value;
+                },
+                controller: prayController,
+                maxLines: 3,
+                maxLength: 120,
+                decoration: InputDecoration(
+                  labelText: StringConstants.addDhikrPray,
+                  labelStyle: TextStyle(color: textColor),
+                  hintStyle: TextStyle(color: textColor.withOpacity(0.3)),
+                  hintText: StringConstants.addDhikrPrayHint,
+                  errorText: dhikrsViewModel.prayError.value.isNotEmpty
+                      ? dhikrsViewModel.prayError.value
+                      : null,
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: textColor),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: textColor),
+                  ),
+                ),
+                cursorColor: beadsViewModel.beadColor.value,
+                style: TextStyle(color: textColor),
+              ),
+            ),
+          ),
+          Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -171,6 +204,7 @@ class AddDhikrBottomSheet extends StatelessWidget {
                       backgroundColor: dhikrsViewModel.backgroundColor.value,
                       totalCount: dhikrsViewModel.totalCount.value,
                       lastCount: editDhikr?.lastCount ?? 0,
+                      pray: dhikrsViewModel.pray.value,
                       timestamp: Timestamp.now(),
                     );
 

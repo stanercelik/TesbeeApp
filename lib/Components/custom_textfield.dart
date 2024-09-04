@@ -51,7 +51,7 @@ class CustomTextField extends StatelessWidget {
         maxLines: maxLine,
         controller: controller,
         obscureText: obscureTextRx.value,
-        style: const TextStyle(
+        style: TextStyle(
           color: AppColors.primaryText,
           fontWeight: FontWeight.w600,
         ),
@@ -73,7 +73,7 @@ class CustomTextField extends StatelessWidget {
                 const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
             suffixIcon: suffixIcon ??
                 (showValidationIcon && isValid
-                    ? const Icon(
+                    ? Icon(
                         Icons.check_circle,
                         color: AppColors.primaryText,
                         size: 24,

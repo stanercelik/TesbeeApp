@@ -24,6 +24,10 @@ class UserAuthViewModel extends GetxController {
     }
   }
 
+  bool isUserSignedIn() {
+    return firebaseUser.value != null;
+  }
+
   void signOut() async {
     await auth.signOut();
   }

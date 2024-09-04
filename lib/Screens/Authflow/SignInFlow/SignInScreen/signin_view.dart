@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tesbih_app/Resources/app_colors.dart';
 import 'package:tesbih_app/Screens/Authflow/BaseAuth/base_auth_view.dart';
 import 'package:tesbih_app/Screens/Authflow/SignInFlow/ForgotPasswordBS/forgot_password_view.dart';
 import 'package:tesbih_app/Screens/Authflow/SignInFlow/ForgotPasswordBS/forgot_password_viewmodel.dart';
@@ -15,9 +16,9 @@ class SignInView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseAuthScreen(
-      title: 'Sign in with email',
-      subtitle: 'Enter your email and password',
-      buttonText: 'Sign In',
+      title: 'E-posta ile giriş yap',
+      subtitle: 'E-posta ve şifreni girerek giriş yap',
+      buttonText: 'Giriş yap',
       emailController: _signInViewModel.emailController,
       passwordController: _signInViewModel.passwordController,
       isEmailValid: _signInViewModel.isEmailValid,
@@ -27,6 +28,7 @@ class SignInView extends StatelessWidget {
       onButtonPressed: () => _signInViewModel.signIn(),
       onForgotPasswordPressed: () {
         showModalBottomSheet(
+          backgroundColor: AppColors.primaryBackground,
           context: context,
           builder: (context) => ForgotPasswordBottomSheet(
             isEmailValid: _bottomSheetViewModel.isForgotPasswordEmailValid,

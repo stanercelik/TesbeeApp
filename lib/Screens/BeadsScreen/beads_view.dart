@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tesbih_app/Constants/string_constants.dart';
+import 'package:tesbih_app/Resources/app_colors.dart';
 import 'package:tesbih_app/Screens/Authflow/BaseAuth/base_auth_viewmodel.dart';
 import 'package:tesbih_app/Screens/BeadsScreen/beads_viewmodel.dart';
 import 'package:tesbih_app/Screens/DraggableCycleView/draggable_cycle.dart';
@@ -20,7 +21,7 @@ class BeadsView extends StatelessWidget {
         backgroundColor: beadsViewModel.backgroundColor.value,
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: beadsViewModel.backgroundColor.value,
+          backgroundColor: AppColors.primaryBackground,
           leading: Builder(
             builder: (context) {
               return IconButton(
@@ -36,12 +37,12 @@ class BeadsView extends StatelessWidget {
             StringConstants.mainScreenAppTitle,
             style: TextStyle(
               fontSize: 24,
-              color: getTextColor(beadsViewModel.backgroundColor.value),
+              color: getTextColor(AppColors.primaryBackground),
             ),
           ),
         ),
         drawer: Drawer(
-          backgroundColor: beadsViewModel.backgroundColor.value,
+          backgroundColor: AppColors.primaryBackground,
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
@@ -51,7 +52,7 @@ class BeadsView extends StatelessWidget {
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     boxShadow: const [BoxShadow(color: Colors.black)],
-                    color: beadsViewModel.backgroundColor.value,
+                    color: AppColors.primaryBackground,
                   ),
                   child: Text(
                     StringConstants.drawerTitle,
@@ -173,21 +174,25 @@ class BeadsView extends StatelessWidget {
                   },
                 ),
               ),
-              ListTile(
-                leading: Icon(
-                  Icons.logout_rounded,
-                  color: getTextColor(beadsViewModel.backgroundColor.value),
-                ),
-                title: Text(
-                  StringConstants.drawerSignOut,
-                  style: TextStyle(
-                    color: getTextColor(beadsViewModel.backgroundColor.value),
-                  ),
-                ),
-                onTap: () {
-                  authViewModel.signOut();
-                },
-              ),
+              authViewModel.isUserSignedIn()
+                  ? ListTile(
+                      leading: Icon(
+                        Icons.logout_rounded,
+                        color:
+                            getTextColor(beadsViewModel.backgroundColor.value),
+                      ),
+                      title: Text(
+                        StringConstants.drawerSignOut,
+                        style: TextStyle(
+                          color: getTextColor(
+                              beadsViewModel.backgroundColor.value),
+                        ),
+                      ),
+                      onTap: () {
+                        authViewModel.signOut();
+                      },
+                    )
+                  : const SizedBox.shrink()
             ],
           ),
         ),

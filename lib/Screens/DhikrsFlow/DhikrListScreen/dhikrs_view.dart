@@ -1,12 +1,13 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tesbih_app/Constants/string_constants.dart';
+import 'package:tesbih_app/Resources/app_colors.dart';
+import 'package:tesbih_app/Screens/Authflow/BaseAuth/base_auth_viewmodel.dart';
 import 'package:tesbih_app/Screens/BeadsScreen/beads_viewmodel.dart';
 import 'package:tesbih_app/Screens/DhikrsFlow/DhikrListScreen/add_dhikr_bottom_sheet.dart';
 import 'package:tesbih_app/Screens/DhikrsFlow/DhikrListScreen/dhikr_list_item_view.dart';
 import 'package:tesbih_app/Screens/DhikrsFlow/DhikrListScreen/dhikrs_viewmodel.dart';
-import 'package:tesbih_app/Screens/WelcomeScreen/welcome_view.dart';
-import 'package:tesbih_app/Services/auth_service.dart';
 import 'package:tesbih_app/Utils/color_utils.dart';
 
 class DhikrView extends StatelessWidget {
@@ -14,16 +15,16 @@ class DhikrView extends StatelessWidget {
 
   final BeadsViewModel beadsViewModel = Get.put(BeadsViewModel());
   final DhikrsViewModel dhikrsViewModel = Get.put(DhikrsViewModel());
-  final AuthService authService = Get.put(AuthService());
+  final UserAuthViewModel userAuthViewModel = Get.put(UserAuthViewModel());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: beadsViewModel.backgroundColor.value,
+      backgroundColor: AppColors.primaryBackground,
       appBar: AppBar(
         centerTitle: true,
         actions: [
-          authService.isAnonymousUser()
+          !userAuthViewModel.isUserSignedIn()
               ? const SizedBox(
                   height: 20,
                   width: 20,
@@ -32,53 +33,50 @@ class DhikrView extends StatelessWidget {
                   onPressed: () => _onAddDhikrPressed(context),
                   icon: Icon(
                     Icons.add_rounded,
-                    color: getTextColor(beadsViewModel.backgroundColor.value),
+                    color: getTextColor(AppColors.primaryBackground),
                   ),
                   iconSize: 28,
                 ),
         ],
-        backgroundColor: beadsViewModel.backgroundColor.value,
+        backgroundColor: AppColors.primaryBackground,
         title: Text(
           StringConstants.dhikrsScreenTitle,
           style: TextStyle(
             fontSize: 24,
-            color: getTextColor(beadsViewModel.backgroundColor.value),
+            color: getTextColor(AppColors.primaryBackground),
           ),
         ),
       ),
       body: Obx(
-        () => authService.isAnonymousUser()
+        () => !userAuthViewModel.isUserSignedIn()
             ? Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                child: RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  text: 'Zikir oluşturmak için\n',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: getTextColor(beadsViewModel.backgroundColor.value)
+                        .withOpacity(0.4),
+                  ),
                   children: [
-                    GestureDetector(
-                        onTap: () => Get.to(() => WelcomeView()),
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 4.0),
-                          child: Text(
-                            'Sign in or Register',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700,
-                              color: getTextColor(
-                                      beadsViewModel.backgroundColor.value)
-                                  .withOpacity(0.8),
-                            ),
-                          ),
-                        )),
-                    Text(
-                      'to add dhikrs',
+                    TextSpan(
+                      text: 'kaydol veya giriş yap',
                       style: TextStyle(
                         fontSize: 14,
+                        fontWeight: FontWeight.w700,
                         color:
                             getTextColor(beadsViewModel.backgroundColor.value)
-                                .withOpacity(0.4),
+                                .withOpacity(0.8),
                       ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Get.offAndToNamed('welcomeScreen');
+                        },
                     ),
                   ],
                 ),
-              )
+              ))
             : ListView(
                 scrollDirection: Axis.vertical,
                 children: dhikrsViewModel.dhikrs

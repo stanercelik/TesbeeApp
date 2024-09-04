@@ -7,9 +7,14 @@ class StringConstants {
   static String dhikrsScreenTitle = "Zikirler";
   static String editDhikr = "Düzenle";
   static String deleteDhikr = "Sil";
+  static String alertTitle = "Tebrikler! Zikrini tamamladın.";
+  static String alertContent =
+      "Zikri listenden silmek mi yoksa baştan başlamak mı istersin?";
+  static String alertDeleteButton = "Sil";
+  static String alertRestartButton = "Baştan Başla";
 
   static String bottomNavBarDhikrs = "Zikirler";
-  static String bottomNavBarBeads = "Tesbih";
+  static String bottomNavBarBeads = "Tesbihat";
 
   static String addDhikrTitle = "Zikir Adı";
   static String addDhikrTitleHint = "Oluşturulan zikrin adını girin";
@@ -22,6 +27,14 @@ class StringConstants {
   static String addDhikrPrayHint = "Zikredeceğiniz duayı girin";
   static String addDhikrButton = "Zikri Ekle";
   static String editDhikrButton = "Düzenlemeyi Kaydet";
+
+  static String addDhikrTitleError = "Zikir başlığı boş bırakılamaz!";
+  static String addDhikrTitleLongError = "Zikir başlığı çok uzun!";
+  static String addDhikrCountZeroError = "Zikir sayısı 0'dan büyük olmalı!";
+  static String addDhikrCountTooBigError =
+      "Zikir sayısı 9999'dan küçük olmalı!";
+  static String addDhikrPrayError =
+      "Okuyacağınız zikrin karakter sayısı çok fazla!";
 
   static String limitReached = 'Zikir Limitine Ulaşıldı';
   static String limitReachedText = '5 taneden fazla zikir ekleyemezsiniz';

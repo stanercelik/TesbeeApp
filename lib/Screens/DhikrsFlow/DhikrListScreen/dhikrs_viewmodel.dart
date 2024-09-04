@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tesbih_app/Constants/string_constants.dart';
 import 'package:tesbih_app/Models/dhikr_model.dart';
 import 'package:tesbih_app/Resources/picker_colors.dart';
 
@@ -12,9 +13,11 @@ class DhikrsViewModel extends GetxController {
   var dhikrs = <Dhikr>[].obs;
   var title = ''.obs;
   var totalCount = ''.obs;
+  var pray = ''.obs;
 
   var titleError = ''.obs;
   var totalCountError = ''.obs;
+  var prayError = ''.obs;
 
   @override
   void onInit() {
@@ -23,15 +26,19 @@ class DhikrsViewModel extends GetxController {
   }
 
   Future<void> addDhikr(Dhikr dhikr) async {
-    if (await canAddDhikr()) {
+    User? user = FirebaseAuth.instance.currentUser;
+    String? uid = user?.uid;
+
+    if (uid != null) {
+      DocumentReference docRef = FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('dhikrs')
+          .doc();
+
+      dhikr.id = docRef.id;
+      await docRef.set(dhikr.toMap());
       dhikrs.add(dhikr);
-      await _addDhikrToFirestore(dhikr);
-    } else {
-      Get.snackbar(
-        'Limit Reached',
-        'You cannot add more than 4 dhikrs.',
-        snackPosition: SnackPosition.TOP,
-      );
     }
   }
 
@@ -44,7 +51,9 @@ class DhikrsViewModel extends GetxController {
     User? user = FirebaseAuth.instance.currentUser;
     String? uid = user?.uid;
 
-    if (uid != null) {
+    if (uid != null && updatedDhikr.id.isNotEmpty) {
+      // ID kontrolü eklendi.
+      updatedDhikr.timestamp = Timestamp.now();
       await FirebaseFirestore.instance
           .collection('users')
           .doc(uid)
@@ -57,6 +66,8 @@ class DhikrsViewModel extends GetxController {
         dhikrs[index] = updatedDhikr;
         dhikrs.refresh();
       }
+
+      dhikrs.sort((a, b) => b.timestamp.compareTo(a.timestamp));
     }
   }
 
@@ -120,13 +131,31 @@ class DhikrsViewModel extends GetxController {
         return Dhikr.fromDocument(doc);
       }).toList();
 
+      // Sort by lastCount or timestamp to have the most recent first
+      fetchedDhikrs.sort((a, b) {
+        return b.timestamp
+            .compareTo(a.timestamp); // Sort by timestamp in descending order
+      });
+
       dhikrs.assignAll(fetchedDhikrs);
     }
   }
 
   bool validateTitle() {
     if (title.value.isEmpty) {
-      titleError.value = 'Title cannot be empty';
+      titleError.value = StringConstants.addDhikrTitleError;
+      return false;
+    } else if (title.value.length > 50) {
+      titleError.value = StringConstants.addDhikrTitleLongError;
+      return false;
+    }
+    titleError.value = '';
+    return true;
+  }
+
+  bool validatePray() {
+    if (pray.value.length > 120) {
+      prayError.value = StringConstants.addDhikrPrayError;
       return false;
     }
     titleError.value = '';
@@ -136,7 +165,10 @@ class DhikrsViewModel extends GetxController {
   bool validateTotalCount() {
     final count = int.tryParse(totalCount.value) ?? -1;
     if (count <= 0) {
-      totalCountError.value = 'Total count must be greater than 0';
+      totalCountError.value = StringConstants.addDhikrCountZeroError;
+      return false;
+    } else if (count > 9999) {
+      totalCountError.value = StringConstants.addDhikrCountTooBigError;
       return false;
     }
     totalCountError.value = '';
@@ -146,6 +178,7 @@ class DhikrsViewModel extends GetxController {
   bool validateAll() {
     final isTitleValid = validateTitle();
     final isTotalCountValid = validateTotalCount();
-    return isTitleValid && isTotalCountValid;
+    final isPrayValid = validatePray();
+    return isTitleValid && isTotalCountValid && isPrayValid;
   }
 }

@@ -60,33 +60,35 @@ class SlidableButton extends StatelessWidget {
         // This is the maximum ratio allowed by the current action pane.
         final maxRatio = controller.actionPaneConfigurator!.extentRatio;
         final double opacity = value / maxRatio;
-        return Flexible(
-            flex: flex,
-            fit: FlexFit.tight,
-            child: GestureDetector(
-              onTap: () => _handleTap(context),
-              child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: borderRadius, color: backgroundColor),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(icon,
-                        size: iconSize,
-                        color: foregroundColor?.withOpacity(opacity)),
-                    Text(
-                      label ?? '',
-                      softWrap: false,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          color: foregroundColor?.withOpacity(opacity),
-                          //fontWeight: FontWeight.w300,
-                          fontSize: fontSize),
-                    )
-                  ],
-                ),
-              ),
-            ));
+        return GestureDetector(
+          onTap: () => _handleTap(context),
+          child: Container(
+            constraints: const BoxConstraints(
+              maxWidth:
+                  double.infinity, // Adjust width according to your design
+            ),
+            decoration: BoxDecoration(
+              borderRadius: borderRadius,
+              color: backgroundColor,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(icon,
+                    size: iconSize,
+                    color: foregroundColor?.withOpacity(opacity)),
+                Text(
+                  label ?? '',
+                  softWrap: false,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      color: foregroundColor?.withOpacity(opacity),
+                      fontSize: fontSize),
+                )
+              ],
+            ),
+          ),
+        );
       },
     );
   }

@@ -10,17 +10,18 @@ class Dhikr {
   String totalCount;
   int lastCount;
   Timestamp timestamp;
+  String pray;
 
-  Dhikr({
-    required this.id,
-    required this.title,
-    required this.beadsColor,
-    required this.stringColor,
-    required this.backgroundColor,
-    required this.totalCount,
-    required this.lastCount,
-    required this.timestamp,
-  });
+  Dhikr(
+      {required this.id,
+      required this.title,
+      required this.beadsColor,
+      required this.stringColor,
+      required this.backgroundColor,
+      required this.totalCount,
+      this.lastCount = 0,
+      required this.timestamp,
+      this.pray = ""});
 
   factory Dhikr.fromDocument(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
@@ -33,6 +34,7 @@ class Dhikr {
       totalCount: data['totalCount'],
       lastCount: data['lastCount'],
       timestamp: data['timestamp'],
+      pray: data['pray'],
     );
   }
 
@@ -45,6 +47,7 @@ class Dhikr {
       'totalCount': totalCount,
       'lastCount': lastCount,
       'timestamp': timestamp,
+      'pray': pray,
     };
   }
 }

@@ -6,31 +6,32 @@ import 'package:tesbih_app/Screens/DraggableCycleView/draggable_cycle_view_model
 
 class DhikrBeadsViewModel extends DraggableCycleViewModel {
   final Dhikr dhikr;
+  var lastCount = 0.obs;
 
   DhikrBeadsViewModel({required this.dhikr}) {
     lastCount.value = dhikr.lastCount;
   }
 
-  var lastCount = 0.obs;
-  var isComplete = false.obs; // New observable to track completion state
+  var isComplete = false.obs;
 
   @override
   void increment() {
-    playSoundAndVibrate();
     if (lastCount.value < int.parse(dhikr.totalCount)) {
       lastCount.value++;
       dhikr.lastCount = lastCount.value;
       updateLastCountInFirestore();
-    } else {
-      isComplete.value = true; // Set complete state to true
+
+      if (lastCount.value == int.parse(dhikr.totalCount)) {
+        isComplete.value = true;
+      }
     }
-    updateText();
+    playSoundAndVibrate();
   }
 
   @override
   void resetCounter() {
-    lastCount.value = 1;
-    dhikr.lastCount = 1;
+    lastCount.value = 0;
+    dhikr.lastCount = 0;
     isComplete.value = false; // Reset complete state
     updateLastCountInFirestore();
     resetPosition();
@@ -48,10 +49,5 @@ class DhikrBeadsViewModel extends DraggableCycleViewModel {
           .doc(dhikr.id)
           .update({'lastCount': dhikr.lastCount});
     }
-  }
-
-  // Add delete method to handle dhikr deletion
-  void deleteDhikr() {
-    // Implement the deletion logic here
   }
 }

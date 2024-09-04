@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tesbih_app/Components/custom_button.dart';
+import 'package:tesbih_app/Resources/app_colors.dart';
 import 'package:tesbih_app/Screens/WelcomeScreen/welcome_viewmodel.dart';
 
 class WelcomeView extends StatelessWidget {
@@ -11,25 +12,30 @@ class WelcomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 252, 252, 252),
+      backgroundColor: AppColors.primaryBackground,
       body: Column(
         children: [
           Expanded(
-              flex: 8,
-              child: SizedBox(
-                  child: Image.asset("assets/image/tesbee_image.png"))),
+              flex: 7,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: SizedBox(
+                    child: Image.asset(
+                  "assets/image/deneme.png",
+                )),
+              )),
           Expanded(
               flex: 7,
               child: Column(
                 children: [
-                  const Text(
-                    "Welcome to",
+                  Text(
+                    "Hoş Geldin",
                     style: TextStyle(
                         fontSize: 48,
                         fontWeight: FontWeight.w300,
-                        color: Colors.black),
+                        color: AppColors.primaryText),
                   ),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
@@ -37,14 +43,14 @@ class WelcomeView extends StatelessWidget {
                         style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 42,
-                            color: Colors.black),
+                            color: AppColors.primaryText),
                       ),
-                      Text(
+                      const Text(
                         "Bee",
                         style: TextStyle(
                             fontWeight: FontWeight.w800,
                             fontSize: 42,
-                            color: Colors.amber),
+                            color: AppColors.primaryButton),
                       ),
                     ],
                   ),
@@ -55,10 +61,10 @@ class WelcomeView extends StatelessWidget {
                       children: [
                         CustomWideButton(
                           onPressed: () {
-                            welcomeViewModel.signInAnonymously();
+                            welcomeViewModel.exploreTheApp();
                           },
-                          text: "Discover the app",
-                          backgroundColor: Colors.amber,
+                          text: "Uygulamayı keşfet",
+                          backgroundColor: AppColors.primaryButton,
                           foregroundColor: Colors.black,
                           icon: Icons.person_outline_rounded,
                         ),
@@ -69,8 +75,8 @@ class WelcomeView extends StatelessWidget {
                           onPressed: () {
                             welcomeViewModel.navigateToSignIn();
                           },
-                          text: "Sign in with email",
-                          backgroundColor: Colors.grey.withOpacity(0.25),
+                          text: "E-posta ile giriş yap",
+                          backgroundColor: Colors.white.withOpacity(0.75),
                           foregroundColor: Colors.black,
                           icon: Icons.mail_rounded,
                         ),
@@ -79,9 +85,10 @@ class WelcomeView extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text(
-                                "Don't you have an account?",
-                                style: TextStyle(color: Colors.grey),
+                              Text(
+                                "Hesabın yok mu?",
+                                style: TextStyle(
+                                    color: Colors.white.withOpacity(0.75)),
                               ),
                               GestureDetector(
                                 onTap: () =>
@@ -89,9 +96,10 @@ class WelcomeView extends StatelessWidget {
                                 child: const Padding(
                                   padding: EdgeInsets.only(left: 4.0),
                                   child: Text(
-                                    "Sign up",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w700),
+                                    "Kaydol",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        color: AppColors.primaryButton),
                                   ),
                                 ),
                               )

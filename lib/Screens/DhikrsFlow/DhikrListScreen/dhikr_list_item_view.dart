@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
@@ -67,10 +68,15 @@ class DhikrListItemView extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: () async {
+          // Kullanıcı zikr öğesini seçtiğinde DhikrItemScreen ekranına yönlendirilir.
           Dhikr? updatedDhikr =
               await Get.to(() => DhikrItemScreen(dhikr: dhikr));
           if (updatedDhikr != null) {
             dhikr.lastCount = updatedDhikr.lastCount;
+            dhikr.timestamp = Timestamp.now();
+
+            // Firebase'de güncellemeyi yap.
+            await dhikrsViewModel.updateDhikr(dhikr);
           }
         },
         child: Padding(
@@ -81,46 +87,61 @@ class DhikrListItemView extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: getTextColor(backgroundColor)),
             ),
-            height: MediaQuery.of(context).size.height * 0.15,
+            height: MediaQuery.of(context).size.height * 0.17,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.7,
+                  width: MediaQuery.of(context).size.width * 0.8,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16.0, vertical: 12),
                         child: Text(
                           dhikr.title,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: getTextColor(backgroundColor),
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 14.0),
+                        padding: const EdgeInsets.only(left: 16.0, bottom: 8),
                         child: Text(
                           "${dhikr.lastCount}/${dhikr.totalCount}",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: getTextColor(backgroundColor),
-                            fontSize: 16,
+                            fontSize: 14,
                             fontWeight: FontWeight.w400,
                           ),
                         ),
-                      )
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 12.0, left: 16),
+                        child: Text(
+                          dhikr.pray,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color:
+                                getTextColor(backgroundColor).withOpacity(0.4),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 42.0),
+                  padding: const EdgeInsets.only(right: 16.0),
                   child: Stack(
                     alignment: Alignment.center,
                     children: [

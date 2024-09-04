@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tesbih_app/Components/custom_button.dart';
 import 'package:tesbih_app/Components/custom_textfield.dart';
+import 'package:tesbih_app/Resources/app_colors.dart';
 
 class ForgotPasswordBottomSheet extends StatelessWidget {
   final TextEditingController emailController;
@@ -19,44 +20,48 @@ class ForgotPasswordBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: EdgeInsets.only(
-        left: 16.0,
-        right: 16.0,
-        top: 16.0,
-        bottom: MediaQuery.of(context).viewInsets.bottom + 16,
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.primaryBackground,
+        borderRadius: BorderRadius.circular(16),
+        //borderRadius: const BorderRadius.only( topLeft: Radius.circular(16), topRight: Radius.circular(16))
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Obx(
-            () => CustomTextField(
-              controller: emailController,
-              hintText: 'E-mail',
-              keyboardType: TextInputType.emailAddress,
-              isValid: isEmailValid.value,
+      child: Padding(
+        padding:
+            const EdgeInsets.only(left: 16.0, right: 16, bottom: 32, top: 16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Obx(
+              () => CustomTextField(
+                controller: emailController,
+                hintText: 'E-mail',
+                keyboardType: TextInputType.emailAddress,
+                isValid: isEmailValid.value,
+              ),
             ),
-          ),
-          const SizedBox(height: 16),
-          Obx(
-            () {
-              return CustomWideButton(
-                onPressed: isEmailValid.value && !isLoading.value
-                    ? () {
-                        onSendPressed();
-                        FocusScope.of(context).unfocus();
-                        Navigator.pop(context);
-                      }
-                    : null,
-                text: 'Send',
-                backgroundColor:
-                    isEmailValid.value ? Colors.amber : Colors.grey,
-                foregroundColor: Colors.white,
-                isLoading: isLoading.value,
-              );
-            },
-          ),
-        ],
+            const SizedBox(height: 16),
+            Obx(
+              () {
+                return CustomWideButton(
+                  onPressed: isEmailValid.value && !isLoading.value
+                      ? () {
+                          onSendPressed();
+                          FocusScope.of(context).unfocus();
+                          Navigator.pop(context);
+                        }
+                      : null,
+                  text: 'Send',
+                  backgroundColor: isEmailValid.value
+                      ? AppColors.primaryButton
+                      : Colors.grey,
+                  foregroundColor: Colors.white,
+                  isLoading: isLoading.value,
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

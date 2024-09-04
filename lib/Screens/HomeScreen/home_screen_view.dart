@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:tesbih_app/Constants/string_constants.dart';
+import 'package:tesbih_app/Resources/app_colors.dart';
 import 'package:tesbih_app/Screens/BeadsScreen/beads_view.dart';
 import 'package:tesbih_app/Screens/BeadsScreen/beads_viewmodel.dart';
-import 'package:tesbih_app/Screens/DhikrsFlow/DhikrListScreen/dhikr_view.dart';
+import 'package:tesbih_app/Screens/DhikrsFlow/DhikrListScreen/dhikrs_view.dart';
 
 import 'package:tesbih_app/Screens/HomeScreen/home_screen_viewmodel.dart';
 
@@ -43,15 +46,37 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           child: BottomNavigationBar(
-            backgroundColor: beadsViewModel.backgroundColor.value,
-            items: const [
+            backgroundColor: AppColors.primaryBackground,
+            items: [
               BottomNavigationBarItem(
-                icon: Icon(Icons.book_rounded),
-                label: 'Zikirler',
+                activeIcon: Image.asset(
+                  "assets/icon/prayIcon.png",
+                  color: beadsViewModel.beadColor.value,
+                  width: 35,
+                  height: 35,
+                ),
+                icon: Image.asset(
+                  "assets/icon/prayIcon.png",
+                  color: AppColors.secondaryText,
+                  width: 35,
+                  height: 35,
+                ),
+                label: StringConstants.bottomNavBarDhikrs,
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.ac_unit_rounded),
-                label: 'Tesbih',
+                icon: Image.asset(
+                  'assets/icon/rosary_white.png',
+                  color: AppColors.secondaryText,
+                  width: 45,
+                  height: 45,
+                ),
+                activeIcon: Image.asset(
+                  'assets/icon/rosary_white.png',
+                  color: beadsViewModel.beadColor.value,
+                  width: 45,
+                  height: 45,
+                ),
+                label: StringConstants.bottomNavBarBeads,
               ),
             ],
             currentIndex: homeScreenController.selectedIndex.value,

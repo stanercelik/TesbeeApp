@@ -1,12 +1,14 @@
-// dhikr_item_screen.dart
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tesbih_app/Constants/string_constants.dart';
+import 'package:tesbih_app/Resources/app_colors.dart';
 import 'package:tesbih_app/Screens/DhikrsFlow/DhikrListScreen/dhikrs_viewmodel.dart';
 import 'package:tesbih_app/Screens/DhikrsFlow/DhikrScreen/dhikr_beads_viewmodel.dart';
 import 'package:tesbih_app/Screens/DraggableCycleView/draggable_cycle.dart';
 import 'package:tesbih_app/Models/dhikr_model.dart';
 import 'package:tesbih_app/Utils/color_utils.dart';
-import 'package:tesbih_app/Services/ad_service.dart'; // Import AdService
+import 'package:tesbih_app/Services/ad_service.dart';
 
 class DhikrItemScreen extends StatelessWidget {
   final Dhikr dhikr;
@@ -28,14 +30,41 @@ class DhikrItemScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: dhikr.backgroundColor,
         appBar: AppBar(
-          backgroundColor: dhikr.backgroundColor,
+          backgroundColor: AppColors.primaryBackground,
           title: Text(
             dhikr.title,
             style: TextStyle(
               fontSize: 24,
-              color: getTextColor(dhikr.backgroundColor),
+              color: getTextColor(AppColors.primaryBackground),
             ),
           ),
+          leading: IconButton(
+            icon: Icon(
+              Icons.chevron_left,
+              color: getTextColor(AppColors.primaryBackground),
+            ),
+            iconSize: 36,
+            onPressed: () {
+              Get.back(result: dhikr);
+            },
+          ),
+          actions: [
+            Obx(() {
+              return Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 32),
+                child: Text(
+                  '${dhikrBeadsViewModel.lastCount}/${dhikr.totalCount}',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 28,
+                    color: getTextColor(AppColors.primaryBackground),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              );
+            }),
+          ],
         ),
         body: Stack(
           children: [
@@ -58,7 +87,7 @@ class DhikrItemScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      dhikr.backgroundColor.withOpacity(0.7),
+                      AppColors.primaryBackground.withOpacity(0.75),
                       invertColor(getTextColor(dhikr.backgroundColor))
                           .withAlpha(0),
                     ],
@@ -68,47 +97,82 @@ class DhikrItemScreen extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    Obx(() => Text(
-                          '${dhikrBeadsViewModel.lastCount}',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 32,
-                            color: getTextColor(dhikr.backgroundColor),
-                            fontWeight: FontWeight.w600,
-                          ),
-                        )),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24.0, vertical: 4),
+                      child: Text(
+                        dhikrBeadsViewModel.dhikr.pray,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: getTextColor(dhikr.backgroundColor),
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
-            // Lottie animation when dhikr is complete
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: adService.getBannerAdWidget(),
+            ),
             Obx(() {
               if (dhikrBeadsViewModel.isComplete.value) {
-                return Center(
-                  child: AlertDialog(
-                    title: const Text('Tebrikler! Zikrini tamamladın.'),
-                    content: const Text(
-                        'Zikri listenden silmek mi yoksa baştan başlamak mı istersin?'),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          dhikrBeadsViewModel.resetCounter();
-                          adService.showInterstitialAd(); // Show ad on restart
-                        },
-                        child: const Text('Baştan Başla'),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          dhikrsViewModel.deleteDhikr(dhikr);
-                          Get.back();
-                          Get.back();
-                          adService.showInterstitialAd(); // Show ad on delete
-                        },
-                        child: const Text('Sil'),
-                      ),
-                    ],
-                  ),
-                );
+                if (GetPlatform.isIOS) {
+                  return Center(
+                    child: CupertinoAlertDialog(
+                      title: Text(StringConstants.alertTitle),
+                      content: Text(StringConstants.alertContent),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            dhikrBeadsViewModel.resetCounter();
+                            adService.showInterstitialAd();
+                          },
+                          child: Text(StringConstants.alertRestartButton),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            dhikrsViewModel.deleteDhikr(dhikr);
+                            Get.back();
+                            Get.back();
+                            adService.showInterstitialAd();
+                          },
+                          child: Text(StringConstants.alertDeleteButton),
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  return Center(
+                    child: AlertDialog(
+                      title: Text(StringConstants.alertTitle),
+                      content: Text(StringConstants.alertContent),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            dhikrBeadsViewModel.resetCounter();
+                            adService.showInterstitialAd();
+                          },
+                          child: Text(StringConstants.alertRestartButton),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            dhikrsViewModel.deleteDhikr(dhikr);
+                            Get.back();
+                            Get.back();
+                            adService.showInterstitialAd();
+                          },
+                          child: Text(StringConstants.alertDeleteButton),
+                        ),
+                      ],
+                    ),
+                  );
+                }
               } else {
                 return const SizedBox.shrink();
               }
