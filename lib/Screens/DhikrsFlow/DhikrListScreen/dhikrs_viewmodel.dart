@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tesbih_app/Constants/string_constants.dart';
-import 'package:tesbih_app/Models/dhikr_model.dart';
-import 'package:tesbih_app/Resources/picker_colors.dart';
+import 'package:tesbee/Constants/string_constants.dart';
+import 'package:tesbee/Models/dhikr_model.dart';
+import 'package:tesbee/Resources/picker_colors.dart';
 
 class DhikrsViewModel extends GetxController {
   var beadColor = premiumPickerColors["darkorange"]!.obs;

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:get/get.dart';
-import 'package:tesbih_app/Components/custom_button.dart';
-import 'package:tesbih_app/Components/custom_textfield.dart';
-import 'package:tesbih_app/Resources/app_colors.dart';
-import 'package:tesbih_app/Screens/Authflow/BaseAuth/base_auth_viewmodel.dart';
+import 'package:tesbee/Components/custom_button.dart';
+import 'package:tesbee/Components/custom_textfield.dart';
+import 'package:tesbee/Resources/app_colors.dart';
+import 'package:tesbee/Screens/Authflow/BaseAuth/base_auth_viewmodel.dart';
 
 class BaseAuthScreen extends StatelessWidget {
   final String title;

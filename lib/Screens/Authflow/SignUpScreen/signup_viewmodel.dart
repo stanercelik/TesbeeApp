@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tesbih_app/Services/auth_service.dart';
+import 'package:tesbee/Services/auth_service.dart';
 
 class SignUpViewModel extends GetxController {
   final AuthService _authService = AuthService();
@@ -40,12 +40,36 @@ class SignUpViewModel extends GetxController {
         password: passwordController.text,
       );
       /*await _biometricAuthService.storeCredentials(
-        emailController.text.trim(),
-        passwordController.text,
-      );*/
+      emailController.text.trim(),
+      passwordController.text,
+    );*/
       Get.snackbar('Başarılı', 'Hesap başarıyla oluşturuldu');
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'email-already-in-use') {
+        Get.snackbar(
+          'Hata',
+          'Bu e-posta ile zaten bir hesap oluşturulmuş.',
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+      } else {
+        Get.snackbar(
+          'Hata',
+          e.message ?? 'Bilinmeyen bir hata oluştu.',
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+      }
     } catch (e) {
-      Get.snackbar('Hata', e.toString());
+      Get.snackbar(
+        'Hata',
+        e.toString(),
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
     } finally {
       isLoading.value = false;
     }

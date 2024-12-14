@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tesbih_app/Components/custom_button.dart';
-import 'package:tesbih_app/Resources/app_colors.dart';
-import 'package:tesbih_app/Screens/WelcomeScreen/welcome_viewmodel.dart';
+import 'package:tesbee/Components/custom_button.dart';
+import 'package:tesbee/Resources/app_colors.dart';
+import 'package:tesbee/Screens/WelcomeScreen/welcome_viewmodel.dart';
 
 class WelcomeView extends StatelessWidget {
   WelcomeView({super.key});

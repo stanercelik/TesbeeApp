@@ -2,13 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
-import 'package:tesbih_app/Constants/string_constants.dart';
-import 'package:tesbih_app/Models/dhikr_model.dart';
-import 'package:tesbih_app/Screens/DhikrsFlow/DhikrListScreen/add_dhikr_bottom_sheet.dart';
-import 'package:tesbih_app/Screens/DhikrsFlow/DhikrScreen/dhikr_beads_view.dart';
-import 'package:tesbih_app/Screens/DhikrsFlow/DhikrListScreen/dhikrs_viewmodel.dart';
-import 'package:tesbih_app/Utils/color_utils.dart';
-import 'package:tesbih_app/Utils/slideable_button.dart';
+import 'package:tesbee/Constants/string_constants.dart';
+import 'package:tesbee/Models/dhikr_model.dart';
+import 'package:tesbee/Screens/DhikrsFlow/DhikrListScreen/add_dhikr_bottom_sheet.dart';
+import 'package:tesbee/Screens/DhikrsFlow/DhikrScreen/dhikr_beads_view.dart';
+import 'package:tesbee/Screens/DhikrsFlow/DhikrListScreen/dhikrs_viewmodel.dart';
+import 'package:tesbee/Utils/color_utils.dart';
+import 'package:tesbee/Utils/slideable_button.dart';
 
 class DhikrListItemView extends StatelessWidget {
   const DhikrListItemView({

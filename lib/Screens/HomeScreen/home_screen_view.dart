@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:tesbih_app/Constants/string_constants.dart';
-import 'package:tesbih_app/Resources/app_colors.dart';
-import 'package:tesbih_app/Screens/BeadsScreen/beads_view.dart';
-import 'package:tesbih_app/Screens/BeadsScreen/beads_viewmodel.dart';
-import 'package:tesbih_app/Screens/DhikrsFlow/DhikrListScreen/dhikrs_view.dart';
-
-import 'package:tesbih_app/Screens/HomeScreen/home_screen_viewmodel.dart';
+import 'package:tesbee/Constants/string_constants.dart';
+import 'package:tesbee/Resources/app_colors.dart';
+import 'package:tesbee/Screens/BeadsScreen/beads_view.dart';
+import 'package:tesbee/Screens/BeadsScreen/beads_viewmodel.dart';
+import 'package:tesbee/Screens/DhikrsFlow/DhikrListScreen/dhikrs_view.dart';
+import 'package:tesbee/Screens/HomeScreen/home_screen_viewmodel.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

@@ -7,11 +7,13 @@ class AdService extends GetxService {
   bool _isInterstitialAdLoaded = false;
   BannerAd? _bannerAd;
   bool _isBannerAdLoaded = false;
+  bool _isInterstitialTesbihatDoneAdLoaded = false;
 
   Future<AdService> init() async {
     await MobileAds.instance.initialize();
     loadInterstitialAd();
     loadBannerAd();
+    loadInterstitialTesbihatDoneAd();
     return this;
   }
 
@@ -47,6 +49,43 @@ class AdService extends GetxService {
 
       _interstitialAd!.show();
       _isInterstitialAdLoaded = false; // Reset the flag
+    } else {
+      print('Interstitial ad is not loaded yet.');
+    }
+  }
+
+  void loadInterstitialTesbihatDoneAd() {
+    InterstitialAd.load(
+      adUnitId: _getTesbihatDoneAdUnitId(),
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (InterstitialAd ad) {
+          _interstitialAd = ad;
+          _isInterstitialTesbihatDoneAdLoaded = true;
+        },
+        onAdFailedToLoad: (LoadAdError error) {
+          print('InterstitialAd failed to load: $error');
+          _isInterstitialTesbihatDoneAdLoaded = false;
+        },
+      ),
+    );
+  }
+
+  void showInterstitialTesbihatDoneAd() {
+    if (_isInterstitialTesbihatDoneAdLoaded && _interstitialAd != null) {
+      _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+        onAdDismissedFullScreenContent: (InterstitialAd ad) {
+          ad.dispose();
+          loadInterstitialTesbihatDoneAd(); // Reload a new ad after the previous one is closed
+        },
+        onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
+          ad.dispose();
+          loadInterstitialTesbihatDoneAd();
+        },
+      );
+
+      _interstitialAd!.show();
+      _isInterstitialTesbihatDoneAdLoaded = false; // Reset the flag
     } else {
       print('Interstitial ad is not loaded yet.');
     }
@@ -92,9 +131,18 @@ class AdService extends GetxService {
   // Function to get the appropriate ad unit ID for interstitial ads depending on the platform
   String _getInterstitialAdUnitId() {
     if (GetPlatform.isIOS) {
-      return 'ca-app-pub-3940256099942544/4411468910'; // Replace with your actual iOS ad unit ID for interstitials
+      return 'ca-app-pub-2958213735333735/9022040201'; // Replace with your actual iOS ad unit ID for interstitials
     } else if (GetPlatform.isAndroid) {
-      return 'ca-app-pub-3940256099942544/1033173712'; // Replace with your actual Android ad unit ID for interstitials
+      return 'ca-app-pub-2958213735333735/6488360682'; // Replace with your actual Android ad unit ID for interstitials
+    }
+    return '';
+  }
+
+  String _getTesbihatDoneAdUnitId() {
+    if (GetPlatform.isIOS) {
+      return 'ca-app-pub-2958213735333735/9022040201'; // Replace with your actual iOS ad unit ID for interstitials
+    } else if (GetPlatform.isAndroid) {
+      return 'ca-app-pub-2958213735333735/8869874225'; // Replace with your actual Android ad unit ID for interstitials
     }
     return '';
   }
@@ -102,9 +150,9 @@ class AdService extends GetxService {
   // Function to get the appropriate ad unit ID for banner ads depending on the platform
   String _getBannerAdUnitId() {
     if (GetPlatform.isIOS) {
-      return 'ca-app-pub-3940256099942544/2934735716'; // Replace with your actual iOS ad unit ID for banners
+      return 'ca-app-pub-2958213735333735/3331031148'; // Replace with your actual iOS ad unit ID for banners
     } else if (GetPlatform.isAndroid) {
-      return 'ca-app-pub-3940256099942544/6300978111'; // Replace with your actual Android ad unit ID for banners
+      return 'ca-app-pub-2958213735333735/9909393654'; // Replace with your actual Android ad unit ID for banners
     }
     return '';
   }

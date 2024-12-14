@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tesbih_app/Constants/string_constants.dart';
-import 'package:tesbih_app/Resources/app_colors.dart';
-import 'package:tesbih_app/Screens/DhikrsFlow/DhikrListScreen/dhikrs_viewmodel.dart';
-import 'package:tesbih_app/Screens/DhikrsFlow/DhikrScreen/dhikr_beads_viewmodel.dart';
-import 'package:tesbih_app/Screens/DraggableCycleView/draggable_cycle.dart';
-import 'package:tesbih_app/Models/dhikr_model.dart';
-import 'package:tesbih_app/Utils/color_utils.dart';
-import 'package:tesbih_app/Services/ad_service.dart';
+import 'package:tesbee/Constants/string_constants.dart';
+import 'package:tesbee/Resources/app_colors.dart';
+import 'package:tesbee/Screens/DhikrsFlow/DhikrListScreen/dhikrs_viewmodel.dart';
+import 'package:tesbee/Screens/DhikrsFlow/DhikrScreen/dhikr_beads_viewmodel.dart';
+import 'package:tesbee/Screens/DraggableCycleView/draggable_cycle.dart';
+import 'package:tesbee/Models/dhikr_model.dart';
+import 'package:tesbee/Utils/color_utils.dart';
+import 'package:tesbee/Services/ad_service.dart';
 
 class DhikrItemScreen extends StatelessWidget {
   final Dhikr dhikr;

@@ -2,14 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:tesbih_app/Components/add_dhikr_color_picker_item.dart';
-import 'package:tesbih_app/Constants/string_constants.dart';
-import 'package:tesbih_app/Models/dhikr_model.dart';
-import 'package:tesbih_app/Resources/app_colors.dart';
-import 'package:tesbih_app/Screens/BeadsScreen/beads_viewmodel.dart';
-import 'package:tesbih_app/Screens/DhikrsFlow/DhikrListScreen/dhikrs_viewmodel.dart';
-import 'package:tesbih_app/Services/ad_service.dart';
-import 'package:tesbih_app/Utils/color_utils.dart';
+import 'package:tesbee/Components/add_dhikr_color_picker_item.dart';
+import 'package:tesbee/Constants/string_constants.dart';
+import 'package:tesbee/Models/dhikr_model.dart';
+import 'package:tesbee/Resources/app_colors.dart';
+import 'package:tesbee/Screens/BeadsScreen/beads_viewmodel.dart';
+import 'package:tesbee/Screens/DhikrsFlow/DhikrListScreen/dhikrs_viewmodel.dart';
+import 'package:tesbee/Services/ad_service.dart';
+import 'package:tesbee/Services/rating_service.dart';
+import 'package:tesbee/Utils/color_utils.dart';
 
 class AddDhikrBottomSheet extends StatelessWidget {
   final Dhikr? editDhikr;
@@ -210,14 +211,24 @@ class AddDhikrBottomSheet extends StatelessWidget {
 
                     if (editDhikr != null) {
                       dhikrsViewModel.updateDhikr(updatedDhikr);
+      dhikrsViewModel.title.value = "";
+      dhikrsViewModel.totalCount.value = "";
+      Navigator.pop(context);
+      adService.showInterstitialAd();
                     } else {
                       dhikrsViewModel.addDhikr(updatedDhikr);
+      dhikrsViewModel.title.value = "";
+      dhikrsViewModel.totalCount.value = "";
+      Navigator.pop(context);
+                      Future.delayed(const Duration(milliseconds: 500), () {
+        RatingService.showRatingDialog(context).then((_) {
+          adService.showInterstitialAd();
+        });
+      });
                     }
 
                     dhikrsViewModel.title.value = "";
                     dhikrsViewModel.totalCount.value = "";
-                    adService.showInterstitialAd();
-                    Navigator.pop(context);
                   }
                 },
                 child: Text(

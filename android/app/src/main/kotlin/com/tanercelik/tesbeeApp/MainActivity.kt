@@ -1,4 +1,4 @@
-package com.example.tesbih_app
+package com.tanercelik.tesbeeApp
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tesbih_app/Resources/app_colors.dart';
-import 'package:tesbih_app/Screens/Authflow/BaseAuth/base_auth_view.dart';
-import 'package:tesbih_app/Screens/Authflow/SignInFlow/ForgotPasswordBS/forgot_password_view.dart';
-import 'package:tesbih_app/Screens/Authflow/SignInFlow/ForgotPasswordBS/forgot_password_viewmodel.dart';
-import 'package:tesbih_app/Screens/Authflow/SignInFlow/SignInScreen/signin_viewmodel.dart';
+import 'package:tesbee/Resources/app_colors.dart';
+import 'package:tesbee/Screens/Authflow/BaseAuth/base_auth_view.dart';
+import 'package:tesbee/Screens/Authflow/SignInFlow/ForgotPasswordBS/forgot_password_view.dart';
+import 'package:tesbee/Screens/Authflow/SignInFlow/ForgotPasswordBS/forgot_password_viewmodel.dart';
+import 'package:tesbee/Screens/Authflow/SignInFlow/SignInScreen/signin_viewmodel.dart';
 
 class SignInView extends StatelessWidget {
   final SignInViewModel _signInViewModel = Get.put(SignInViewModel());

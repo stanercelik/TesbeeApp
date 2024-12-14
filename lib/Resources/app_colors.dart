@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tesbih_app/Resources/picker_colors.dart';
-import 'package:tesbih_app/Utils/color_utils.dart';
+import 'package:tesbee/Resources/picker_colors.dart';
+import 'package:tesbee/Utils/color_utils.dart';
 
 class AppColors {
   // Arka Plan Renkleri

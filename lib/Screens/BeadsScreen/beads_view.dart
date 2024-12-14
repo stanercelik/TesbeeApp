@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tesbih_app/Constants/string_constants.dart';
-import 'package:tesbih_app/Resources/app_colors.dart';
-import 'package:tesbih_app/Screens/Authflow/BaseAuth/base_auth_viewmodel.dart';
-import 'package:tesbih_app/Screens/BeadsScreen/beads_viewmodel.dart';
-import 'package:tesbih_app/Screens/DraggableCycleView/draggable_cycle.dart';
-import 'package:tesbih_app/Utils/color_picker_utils.dart';
-import 'package:tesbih_app/Utils/color_utils.dart';
+import 'package:tesbee/Constants/string_constants.dart';
+import 'package:tesbee/Resources/app_colors.dart';
+import 'package:tesbee/Screens/Authflow/BaseAuth/base_auth_viewmodel.dart';
+import 'package:tesbee/Screens/BeadsScreen/beads_viewmodel.dart';
+import 'package:tesbee/Screens/DraggableCycleView/draggable_cycle.dart';
+import 'package:tesbee/Utils/color_picker_utils.dart';
+import 'package:tesbee/Utils/color_utils.dart';
 
 class BeadsView extends StatelessWidget {
   final BeadsViewModel beadsViewModel = Get.put(BeadsViewModel());

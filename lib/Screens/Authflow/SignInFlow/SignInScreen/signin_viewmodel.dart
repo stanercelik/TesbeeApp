@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tesbih_app/Services/auth_service.dart';
+import 'package:tesbee/Services/auth_service.dart';
 
 class SignInViewModel extends GetxController {
   final AuthService _authService = AuthService();
@@ -40,21 +40,6 @@ class SignInViewModel extends GetxController {
       await _authService.signIn(
         email: emailController.text.trim(),
         password: passwordController.text,
-      );
-      Get.snackbar(
-        'Success',
-        'Signed in successfully',
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.green,
-        colorText: Colors.white,
-      );
-    } catch (e) {
-      Get.snackbar(
-        'Error',
-        e.toString(),
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
       );
     } finally {
       isLoading.value = false;

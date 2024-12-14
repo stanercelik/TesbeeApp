@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tesbih_app/Utils/color_picker_utils.dart';
-import 'package:tesbih_app/Utils/color_utils.dart';
+import 'package:tesbee/Utils/color_picker_utils.dart';
+import 'package:tesbee/Utils/color_utils.dart';
 
 class ColorPickerRow extends StatelessWidget {
   final String text;

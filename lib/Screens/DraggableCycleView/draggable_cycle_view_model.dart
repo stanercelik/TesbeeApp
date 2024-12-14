@@ -10,14 +10,21 @@ class DraggableCycleViewModel extends GetxController {
   var isVibration = true.obs;
   var isSoundEffect = true.obs;
 
+  // Yeni eklenen değişken: Titreşim kilidi
+  var isVibrating = false.obs;
+
   void increment() {
     playSoundAndVibrate();
     lastCount.value++;
+    updateText();
   }
 
   void playSoundAndVibrate() {
-    playSound(isSoundEffect.value);
-    _vibrate([0, 50, 0, 0], isVibration.value);
+    // Eğer uzun titreşim devam ediyorsa, kısa titreşimi tetikleme
+    if (!isVibrating.value) {
+      playSound(isSoundEffect.value);
+      _vibrate([0, 50], isVibration.value);
+    }
   }
 
   void updatePosition(double delta) {
@@ -36,15 +43,15 @@ class DraggableCycleViewModel extends GetxController {
     switch (lastCount.value) {
       case 33:
         playSound(isSoundEffect.value);
-        _vibrate([0, 300, 0, 0], isVibration.value);
+        _longVibrate([0, 300], isVibration.value);
         break;
       case 66:
         playSound(isSoundEffect.value);
-        _vibrate([0, 300, 100, 300], isVibration.value);
+        _longVibrate([0, 300, 100, 300], isVibration.value);
         break;
       case 99:
         playSound(isSoundEffect.value);
-        _vibrate([0, 300, 100, 300, 100, 300], isVibration.value);
+        _longVibrate([0, 300, 100, 300, 100, 300], isVibration.value);
         break;
       default:
     }
@@ -61,7 +68,18 @@ class DraggableCycleViewModel extends GetxController {
   }
 
   void _vibrate(List<int> pattern, bool isVibrate) {
-    isVibrate ? Vibration.vibrate(pattern: pattern) : null;
+    if (isVibrate) {
+      Vibration.vibrate(pattern: pattern);
+    }
+  }
+
+  // Uzun titreşimleri yöneten asenkron fonksiyon
+  void _longVibrate(List<int> pattern, bool isVibrate) async {
+    if (isVibrate) {
+      isVibrating.value = true; // Titreşim kilidini aktif et
+      await Vibration.vibrate(pattern: pattern);
+      isVibrating.value = false; // Titreşim kilidini kapat
+    }
   }
 
   void playSound(bool soundEffect) async {

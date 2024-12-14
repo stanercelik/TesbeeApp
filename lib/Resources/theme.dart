@@ -33,13 +33,11 @@ final ThemeData lightMode = ThemeData(
   colorScheme: const ColorScheme.light(
     primary: Color(0xFF1E5631), // Daha koyu yeşil
     secondary: Color(0xFFDAA520), // Daha koyu altın sarısı
-    surface: Color(0xFFFFFFFF), // Beyaz
-    background: Color(0xFFF5F5F5), // Hafif gri
+    surface: Color(0xFFFFFFFF), // Hafif gri
     error: Color(0xFFB00020), // Kırmızı
     onPrimary: Color(0xFFFFFFFF), // Beyaz
     onSecondary: Color(0xFF000000), // Siyah
     onSurface: Color(0xFF000000), // Siyah
-    onBackground: Color(0xFF000000), // Siyah
     onError: Color(0xFFFFFFFF), // Beyaz
   ),
 );
@@ -78,14 +76,12 @@ final ThemeData darkMode = ThemeData(
     primary: Color(0xFF145A32), // Yeşil
     secondary: Color(0xFFC0A006), // Altın sarısı
     surface: Color(0xFF121212), // Koyu gri
-    background: Color(0xFF121212), // Koyu gri
     error: Color(0xFFCF6679), // Koyu kırmızı
     onPrimary: Color(0xFFFFFFFF), // Beyaz
     onSecondary: Color(0xFF000000), // Siyah
     onSurface: Color(0xFFFFFFFF), // Beyaz
-    onBackground: Color(0xFFFFFFFF), // Beyaz
     onError: Color(0xFF000000), // Siyah
   )
       .copyWith(secondary: const Color(0xFFC0A006))
-      .copyWith(background: const Color(0xFF121212)),
+      .copyWith(surface: const Color(0xFF121212)),
 );

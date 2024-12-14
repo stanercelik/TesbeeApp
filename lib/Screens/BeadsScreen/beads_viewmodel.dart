@@ -2,9 +2,10 @@ import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tesbih_app/Constants/string_constants.dart';
-import 'package:tesbih_app/Resources/picker_colors.dart';
-import 'package:tesbih_app/Screens/DraggableCycleView/draggable_cycle_view_model.dart';
+import 'package:tesbee/Constants/string_constants.dart';
+import 'package:tesbee/Resources/picker_colors.dart';
+import 'package:tesbee/Screens/DraggableCycleView/draggable_cycle_view_model.dart';
+import 'package:tesbee/Services/ad_service.dart';
 
 class BeadsViewModel extends DraggableCycleViewModel {
   var currentText = StringConstants.subhanallahString.obs;
@@ -12,6 +13,8 @@ class BeadsViewModel extends DraggableCycleViewModel {
   var beadColor = premiumPickerColors["darkorange"]!.obs;
   var stringColor = premiumPickerColors["gray"]!.obs;
   var backgroundColor = premiumPickerColors["dimgray"]!.obs;
+
+  final AdService adService = Get.put(AdService());
 
   @override
   var isVibration = true.obs;
@@ -69,6 +72,7 @@ class BeadsViewModel extends DraggableCycleViewModel {
   void increment() {
     playSoundAndVibrate();
     if (lastCount >= 99) {
+      adService.showInterstitialTesbihatDoneAd();
       resetCounter();
     } else {
       lastCount++;

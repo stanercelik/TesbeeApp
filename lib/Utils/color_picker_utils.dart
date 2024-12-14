@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:tesbih_app/Constants/string_constants.dart';
-import 'package:tesbih_app/Resources/picker_colors.dart';
+import 'package:tesbee/Constants/string_constants.dart';
+import 'package:tesbee/Resources/picker_colors.dart';
 
 void showColorPicker(
     BuildContext context, Function(Color) onColorChanged, Color currentColor) {

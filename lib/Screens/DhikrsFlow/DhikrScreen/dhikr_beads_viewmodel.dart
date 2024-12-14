@@ -1,11 +1,12 @@
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tesbih_app/Models/dhikr_model.dart';
-import 'package:tesbih_app/Screens/DraggableCycleView/draggable_cycle_view_model.dart';
+import 'package:tesbee/Models/dhikr_model.dart';
+import 'package:tesbee/Screens/DraggableCycleView/draggable_cycle_view_model.dart';
 
 class DhikrBeadsViewModel extends DraggableCycleViewModel {
   final Dhikr dhikr;
+  @override
   var lastCount = 0.obs;
 
   DhikrBeadsViewModel({required this.dhikr}) {

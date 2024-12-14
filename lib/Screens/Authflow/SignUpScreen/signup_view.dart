@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tesbih_app/Screens/Authflow/BaseAuth/base_auth_view.dart';
-import 'package:tesbih_app/Screens/Authflow/SignUpScreen/signup_viewmodel.dart';
+import 'package:tesbee/Screens/Authflow/BaseAuth/base_auth_view.dart';
+import 'package:tesbee/Screens/Authflow/SignUpScreen/signup_viewmodel.dart';
 
 class SignUpView extends StatelessWidget {
   final SignUpViewModel _signUpViewModel = Get.put(SignUpViewModel());
