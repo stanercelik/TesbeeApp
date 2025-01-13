@@ -10,7 +10,7 @@ import 'package:tesbee/Screens/Authflow/SignUpScreen/signup_view.dart';
 import 'package:tesbee/Screens/BeadsScreen/beads_view.dart';
 import 'package:tesbee/Screens/HomeScreen/home_screen_view.dart';
 import 'package:tesbee/Screens/WelcomeScreen/welcome_view.dart';
-
+import 'package:tesbee/Screens/AIChatScreen/ai_chat_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,6 +40,7 @@ class TesbeeApp extends StatelessWidget {
         GetPage(name: Routes.signUpScreen, page: () => SignUpView()),
         GetPage(name: Routes.baseBeadScreen, page: () => BeadsView()),
         GetPage(name: Routes.homeScreen, page: () => const HomeScreen()),
+        GetPage(name: Routes.aiChatScreen, page: () => const AIChatView()),
       ],
     );
   }

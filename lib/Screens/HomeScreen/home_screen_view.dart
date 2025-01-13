@@ -6,6 +6,7 @@ import 'package:tesbee/Screens/BeadsScreen/beads_view.dart';
 import 'package:tesbee/Screens/BeadsScreen/beads_viewmodel.dart';
 import 'package:tesbee/Screens/DhikrsFlow/DhikrListScreen/dhikrs_view.dart';
 import 'package:tesbee/Screens/HomeScreen/home_screen_viewmodel.dart';
+import 'package:tesbee/Screens/AIChatScreen/ai_chat_view.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final List _pages = [
     DhikrView(),
     BeadsView(),
+    AIChatView(),
   ];
 
   @override
@@ -75,6 +77,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 45,
                 ),
                 label: StringConstants.bottomNavBarBeads,
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.chat_rounded,
+                  color: AppColors.secondaryText,
+                  size: 32,
+                ),
+                activeIcon: Icon(
+                  Icons.chat_rounded,
+                  color: beadsViewModel.beadColor.value,
+                  size: 32,
+                ),
+                label: 'AI Hoca',
               ),
             ],
             currentIndex: homeScreenController.selectedIndex.value,

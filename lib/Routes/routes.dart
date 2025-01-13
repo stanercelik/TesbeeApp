@@ -5,4 +5,5 @@ class Routes {
   static String baseBeadScreen = '/basebead';
   static String homeScreen = '/homescreen';
   static String dhikrsScreen = '/dhikrs';
+  static String aiChatScreen = '/aichat';
 }
