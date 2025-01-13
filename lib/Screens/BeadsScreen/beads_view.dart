@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:tesbee/Constants/string_constants.dart';
 import 'package:tesbee/Resources/app_colors.dart';
 import 'package:tesbee/Screens/Authflow/BaseAuth/base_auth_viewmodel.dart';
@@ -13,6 +14,43 @@ class BeadsView extends StatelessWidget {
   final UserAuthViewModel authViewModel = Get.put(UserAuthViewModel());
 
   BeadsView({super.key});
+
+  Future<void> _showCompletionAnimation(BuildContext context) async {
+    beadsViewModel.isComplete.value = true;
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return WillPopScope(
+          onWillPop: () async => false,
+          child: Dialog(
+            backgroundColor: Colors.transparent,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Lottie.asset(
+                  'assets/animations/confetti.json',
+                  repeat: false,
+                  errorBuilder: (context, error, stackTrace) {
+                    print('Lottie Error: $error');
+                    return const SizedBox.shrink();
+                  },
+                  onLoaded: (composition) async {
+                    await Future.delayed(Duration(
+                        milliseconds: composition.duration.inMilliseconds));
+                    if (context.mounted) {
+                      Navigator.of(context).pop();
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -137,6 +175,7 @@ class BeadsView extends StatelessWidget {
                   totalCount: 99,
                   lastCount: beadsViewModel.lastCount,
                   viewModel: beadsViewModel,
+                  onComplete: () => _showCompletionAnimation(context),
                 ),
               ),
             ),

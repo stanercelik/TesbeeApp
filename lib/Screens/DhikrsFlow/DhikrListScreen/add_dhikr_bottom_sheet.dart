@@ -20,7 +20,7 @@ class AddDhikrBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final DhikrsViewModel dhikrsViewModel = Get.put(DhikrsViewModel());
-    final BeadsViewModel beadsViewModel = Get.find<BeadsViewModel>();
+    final BeadsViewModel beadsViewModel = Get.put(BeadsViewModel());
     final AdService adService = Get.put(AdService());
 
     final TextEditingController titleController = TextEditingController();
@@ -211,20 +211,20 @@ class AddDhikrBottomSheet extends StatelessWidget {
 
                     if (editDhikr != null) {
                       dhikrsViewModel.updateDhikr(updatedDhikr);
-      dhikrsViewModel.title.value = "";
-      dhikrsViewModel.totalCount.value = "";
-      Navigator.pop(context);
-      adService.showInterstitialAd();
+                      dhikrsViewModel.title.value = "";
+                      dhikrsViewModel.totalCount.value = "";
+                      Navigator.pop(context);
+                      adService.showInterstitialAd();
                     } else {
                       dhikrsViewModel.addDhikr(updatedDhikr);
-      dhikrsViewModel.title.value = "";
-      dhikrsViewModel.totalCount.value = "";
-      Navigator.pop(context);
+                      dhikrsViewModel.title.value = "";
+                      dhikrsViewModel.totalCount.value = "";
+                      Navigator.pop(context);
                       Future.delayed(const Duration(milliseconds: 500), () {
-        RatingService.showRatingDialog(context).then((_) {
-          adService.showInterstitialAd();
-        });
-      });
+                        RatingService.showRatingDialog(context).then((_) {
+                          adService.showInterstitialAd();
+                        });
+                      });
                     }
 
                     dhikrsViewModel.title.value = "";
