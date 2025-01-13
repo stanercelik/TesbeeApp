@@ -8,6 +8,7 @@ class DraggableCircle extends StatelessWidget {
   final int totalCount;
   final RxInt lastCount;
   final DraggableCycleViewModel viewModel;
+  final VoidCallback? onComplete;
 
   const DraggableCircle({
     super.key,
@@ -16,6 +17,7 @@ class DraggableCircle extends StatelessWidget {
     required this.totalCount,
     required this.lastCount,
     required this.viewModel,
+    this.onComplete,
   });
 
   @override
@@ -88,6 +90,9 @@ class DraggableCircle extends StatelessWidget {
             if (viewModel.offsetY.value > movementAreaHeight - circleRadius) {
               viewModel.increment();
               viewModel.resetPosition();
+            }
+            if (lastCount.value >= totalCount) {
+              onComplete?.call();
             }
           },
           child: Container(

@@ -13,17 +13,30 @@ class DraggableCycleViewModel extends GetxController {
   // Yeni eklenen değişken: Titreşim kilidi
   var isVibrating = false.obs;
 
+  bool shortVibrationPending = false;
+
   void increment() {
-    playSoundAndVibrate();
+    if (isVibrating.value) {
+      shortVibrationPending = true;
+    } else {
+      playSoundAndVibrate();
+    }
+
     lastCount.value++;
     updateText();
+    onCountChanged(lastCount.value);
   }
 
   void playSoundAndVibrate() {
-    // Eğer uzun titreşim devam ediyorsa, kısa titreşimi tetikleme
+    // Eğer uzun titreşim yoksa direk titreşim yap
+    // Uzun titreşim varsa zaten increment içerisinde kontrol ettik.
     if (!isVibrating.value) {
       playSound(isSoundEffect.value);
       _vibrate([0, 50], isVibration.value);
+    } else {
+      // Eğer uzun titreşim devam ederken bu metot çağrılırsa,
+      // kısa titreşim daha sonra yapılmak üzere shortVibrationPending true yapılır.
+      shortVibrationPending = true;
     }
   }
 
@@ -43,15 +56,15 @@ class DraggableCycleViewModel extends GetxController {
     switch (lastCount.value) {
       case 33:
         playSound(isSoundEffect.value);
-        _longVibrate([0, 300], isVibration.value);
+        longVibrate([0, 300], isVibration.value);
         break;
       case 66:
         playSound(isSoundEffect.value);
-        _longVibrate([0, 300, 100, 300], isVibration.value);
+        longVibrate([0, 300, 100, 300], isVibration.value);
         break;
       case 99:
         playSound(isSoundEffect.value);
-        _longVibrate([0, 300, 100, 300, 100, 300], isVibration.value);
+        longVibrate([0, 300, 100, 300, 100, 300], isVibration.value);
         break;
       default:
     }
@@ -74,11 +87,17 @@ class DraggableCycleViewModel extends GetxController {
   }
 
   // Uzun titreşimleri yöneten asenkron fonksiyon
-  void _longVibrate(List<int> pattern, bool isVibrate) async {
+  void longVibrate(List<int> pattern, bool isVibrate) async {
     if (isVibrate) {
       isVibrating.value = true; // Titreşim kilidini aktif et
       await Vibration.vibrate(pattern: pattern);
       isVibrating.value = false; // Titreşim kilidini kapat
+
+      if (shortVibrationPending) {
+        playSound(isSoundEffect.value);
+        _vibrate([0, 50], isVibration.value);
+        shortVibrationPending = false;
+      }
     }
   }
 
@@ -90,4 +109,6 @@ class DraggableCycleViewModel extends GetxController {
       );
     }
   }
+
+  void onCountChanged(int count) {}
 }

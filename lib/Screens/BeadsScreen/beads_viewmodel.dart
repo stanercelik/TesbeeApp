@@ -6,6 +6,7 @@ import 'package:tesbee/Constants/string_constants.dart';
 import 'package:tesbee/Resources/picker_colors.dart';
 import 'package:tesbee/Screens/DraggableCycleView/draggable_cycle_view_model.dart';
 import 'package:tesbee/Services/ad_service.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class BeadsViewModel extends DraggableCycleViewModel {
   var currentText = StringConstants.subhanallahString.obs;
@@ -15,11 +16,20 @@ class BeadsViewModel extends DraggableCycleViewModel {
   var backgroundColor = premiumPickerColors["dimgray"]!.obs;
 
   final AdService adService = Get.put(AdService());
+  final AudioPlayer audioPlayer = AudioPlayer();
 
   @override
   var isVibration = true.obs;
   @override
   var isSoundEffect = true.obs;
+
+  @override
+  var isVibrating = false.obs;
+
+  @override
+  bool shortVibrationPending = false;
+
+  var isComplete = false.obs;
 
   BeadsViewModel() {
     fetchSettingsFromFirestore();
@@ -70,14 +80,54 @@ class BeadsViewModel extends DraggableCycleViewModel {
 
   @override
   void increment() {
-    playSoundAndVibrate();
-    if (lastCount >= 99) {
-      adService.showInterstitialTesbihatDoneAd();
-      resetCounter();
-    } else {
-      lastCount++;
-      updateText();
+    if (lastCount.value < 99) {
+      lastCount.value++;
+
+      // Check for special counts and play sound/show notification
+      if (lastCount.value == 33 ||
+          lastCount.value == 66 ||
+          lastCount.value == 99) {
+        _playSpecialSound();
+        _showCountNotification(lastCount.value);
+      }
+
+      if (lastCount.value == 99) {
+        isComplete.value = true;
+        adService.showInterstitialTesbihatDoneAd();
+      }
+      updateLastCountInFirestore();
     }
+    playSoundAndVibrate();
+  }
+
+  void _playSpecialSound() async {
+    if (isSoundEffect.value) {
+      try {
+        await audioPlayer.play(AssetSource('sound/spesific_wooden_click.mp3'));
+      } catch (e) {
+        print('Error playing special sound: $e');
+      }
+    }
+  }
+
+  void _showCountNotification(int count) {
+    String message = '';
+    if (count == 33) {
+      message = 'Subhanallah 33';
+    } else if (count == 66) {
+      message = 'Elhamdulillah 66';
+    } else if (count == 99) {
+      message = 'Allahu Ekber 99';
+    }
+
+    Get.snackbar(
+      'TesBee',
+      message,
+      snackPosition: SnackPosition.TOP,
+      backgroundColor: beadColor.value,
+      colorText: Colors.white,
+      duration: const Duration(seconds: 1),
+    );
   }
 
   @override
@@ -94,9 +144,24 @@ class BeadsViewModel extends DraggableCycleViewModel {
 
   @override
   void resetCounter() {
-    lastCount.value = 1;
-    currentText.value = StringConstants.subhanallahString;
+    lastCount.value = 0;
+    isComplete.value = false;
+    updateLastCountInFirestore();
     resetPosition();
+  }
+
+  void updateLastCountInFirestore() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    String? uid = user?.uid;
+
+    if (uid != null) {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('settings')
+          .doc('settingsId')
+          .update({'lastCount': lastCount.value});
+    }
   }
 
   void changeBeadColor(Color color) {
@@ -122,5 +187,56 @@ class BeadsViewModel extends DraggableCycleViewModel {
   void toggleSoundEffect(bool value) {
     isSoundEffect.value = value;
     saveSettingsToFirestore(); // Save settings after change
+  }
+
+  @override
+  void onCountChanged(int count) {
+    if (count == 33) {
+      Get.snackbar(
+        'Tebrikler!',
+        '33 zikri tamamladınız',
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+        duration: const Duration(seconds: 2),
+      );
+    } else if (count == 66) {
+      Get.snackbar(
+        'Tebrikler!',
+        '66 zikri tamamladınız',
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+        duration: const Duration(seconds: 2),
+      );
+    } else if (count == 99) {
+      Get.snackbar(
+        'Tebrikler!',
+        '99 zikri tamamladınız',
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+        duration: const Duration(seconds: 2),
+      );
+    }
+  }
+
+  @override
+  void soundAndVibrateExactValue() {
+    switch (lastCount.value) {
+      case 33:
+        playSound(isSoundEffect.value);
+        longVibrate([0, 300], isVibration.value);
+        break;
+      case 66:
+        playSound(isSoundEffect.value);
+        longVibrate([0, 300, 100, 300], isVibration.value);
+        break;
+      case 99:
+        playSound(isSoundEffect.value);
+        longVibrate([0, 300, 100, 300, 100, 300], isVibration.value);
+        break;
+      default:
+    }
   }
 }
