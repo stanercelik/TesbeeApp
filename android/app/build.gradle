@@ -17,7 +17,7 @@ apply plugin: 'com.google.gms.google-services'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    namespace "com.tanercelik.tesbeeApp"
+    namespace "com.tanercelik.tesbee"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
@@ -35,11 +35,11 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.tanercelik.tesbeeApp"
-        minSdkVersion flutter.minSdkVersion
+        applicationId "com.tanercelik.tesbee"
+        minSdkVersion 23
         targetSdkVersion flutter.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.0.3"
     }
 
     buildTypes {

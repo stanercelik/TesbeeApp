@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:tesbee/Constants/string_constants.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tesbee/Resources/app_colors.dart';
 import 'package:tesbee/Screens/DhikrsFlow/DhikrListScreen/dhikrs_viewmodel.dart';
 import 'package:tesbee/Screens/DhikrsFlow/DhikrScreen/dhikr_beads_viewmodel.dart';
@@ -61,6 +61,7 @@ class DhikrItemScreen extends StatelessWidget {
   }
 
   void _showCompletionDialog(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -69,8 +70,8 @@ class DhikrItemScreen extends StatelessWidget {
           if (dhikrBeadsViewModel.isComplete.value) {
             if (GetPlatform.isIOS) {
               return CupertinoAlertDialog(
-                title: Text(StringConstants.alertTitle),
-                content: Text(StringConstants.alertContent),
+                title: Text(l10n.dhikrAlertTitle),
+                content: Text(l10n.dhikrAlertContent),
                 actions: [
                   TextButton(
                     onPressed: () {
@@ -78,7 +79,7 @@ class DhikrItemScreen extends StatelessWidget {
                       adService.showInterstitialAd();
                       Navigator.of(context).pop();
                     },
-                    child: Text(StringConstants.alertRestartButton),
+                    child: Text(l10n.dhikrAlertRestartButton),
                   ),
                   TextButton(
                     onPressed: () {
@@ -87,14 +88,14 @@ class DhikrItemScreen extends StatelessWidget {
                       Get.back();
                       adService.showInterstitialAd();
                     },
-                    child: Text(StringConstants.alertDeleteButton),
+                    child: Text(l10n.dhikrAlertDeleteButton),
                   ),
                 ],
               );
             } else {
               return AlertDialog(
-                title: Text(StringConstants.alertTitle),
-                content: Text(StringConstants.alertContent),
+                title: Text(l10n.dhikrAlertTitle),
+                content: Text(l10n.dhikrAlertContent),
                 actions: [
                   TextButton(
                     onPressed: () {
@@ -102,7 +103,7 @@ class DhikrItemScreen extends StatelessWidget {
                       adService.showInterstitialAd();
                       Navigator.of(context).pop();
                     },
-                    child: Text(StringConstants.alertRestartButton),
+                    child: Text(l10n.dhikrAlertRestartButton),
                   ),
                   TextButton(
                     onPressed: () {
@@ -111,7 +112,7 @@ class DhikrItemScreen extends StatelessWidget {
                       Get.back();
                       adService.showInterstitialAd();
                     },
-                    child: Text(StringConstants.alertDeleteButton),
+                    child: Text(l10n.dhikrAlertDeleteButton),
                   ),
                 ],
               );

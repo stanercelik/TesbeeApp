@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tesbee/Services/auth_service.dart';
 
 class SignUpViewModel extends GetxController {
@@ -33,6 +34,7 @@ class SignUpViewModel extends GetxController {
   }
 
   Future<void> createUser() async {
+    final l10n = AppLocalizations.of(Get.context!)!;
     isLoading.value = true;
     try {
       await _authService.createUser(
@@ -43,20 +45,20 @@ class SignUpViewModel extends GetxController {
       emailController.text.trim(),
       passwordController.text,
     );*/
-      Get.snackbar('Başarılı', 'Hesap başarıyla oluşturuldu');
+      Get.snackbar(l10n.success, l10n.accountCreated);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         Get.snackbar(
-          'Hata',
-          'Bu e-posta ile zaten bir hesap oluşturulmuş.',
+          l10n.error,
+          l10n.emailAlreadyInUse,
           snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.red,
           colorText: Colors.white,
         );
       } else {
         Get.snackbar(
-          'Hata',
-          e.message ?? 'Bilinmeyen bir hata oluştu.',
+          l10n.error,
+          e.message ?? l10n.unknownError,
           snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.red,
           colorText: Colors.white,
@@ -64,7 +66,7 @@ class SignUpViewModel extends GetxController {
       }
     } catch (e) {
       Get.snackbar(
-        'Hata',
+        l10n.error,
         e.toString(),
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.red,

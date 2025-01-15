@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tesbee/Constants/string_constants.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tesbee/Resources/app_colors.dart';
 import 'package:tesbee/Screens/Authflow/BaseAuth/base_auth_viewmodel.dart';
 import 'package:tesbee/Screens/BeadsScreen/beads_viewmodel.dart';
@@ -19,6 +19,7 @@ class DhikrView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: AppColors.primaryBackground,
       appBar: AppBar(
@@ -40,7 +41,7 @@ class DhikrView extends StatelessWidget {
         ],
         backgroundColor: AppColors.primaryBackground,
         title: Text(
-          StringConstants.dhikrsScreenTitle,
+          l10n.dhikrsScreenTitle,
           style: TextStyle(
             fontSize: 24,
             color: getTextColor(AppColors.primaryBackground),
@@ -53,7 +54,7 @@ class DhikrView extends StatelessWidget {
                 child: RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
-                  text: 'Zikir oluşturmak için\n',
+                  text: l10n.dhikrSignInPrompt,
                   style: TextStyle(
                     fontSize: 14,
                     color: getTextColor(AppColors.primaryBackground)
@@ -61,7 +62,7 @@ class DhikrView extends StatelessWidget {
                   ),
                   children: [
                     TextSpan(
-                      text: 'kaydol veya giriş yap',
+                      text: l10n.dhikrSignInAction,
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
@@ -78,21 +79,38 @@ class DhikrView extends StatelessWidget {
               ))
             : ListView(
                 scrollDirection: Axis.vertical,
-                children: dhikrsViewModel.dhikrs
-                    .map((dhikr) => DhikrListItemView(dhikr: dhikr))
-                    .toList(),
+                children: dhikrsViewModel.dhikrs.isEmpty
+                    ? [
+                        Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(
+                              l10n.emptyDhikrListMessage,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: getTextColor(AppColors.primaryBackground).withOpacity(0.7),
+                              ),
+                            ),
+                          ),
+                        )
+                      ]
+                    : dhikrsViewModel.dhikrs
+                        .map((dhikr) => DhikrListItemView(dhikr: dhikr))
+                        .toList(),
               ),
       ),
     );
   }
 
   void _onAddDhikrPressed(BuildContext context) async {
+    final l10n = AppLocalizations.of(context)!;
     if (await dhikrsViewModel.canAddDhikr()) {
       _showAddDhikrBottomSheet(context);
     } else {
       Get.snackbar(
-        StringConstants.limitReached,
-        StringConstants.limitReachedText,
+        l10n.dhikrLimitReached,
+        l10n.dhikrLimitReachedText,
         snackPosition: SnackPosition.TOP,
       );
     }

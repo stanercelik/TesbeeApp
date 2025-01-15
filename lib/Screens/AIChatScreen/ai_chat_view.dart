@@ -4,6 +4,7 @@ import 'package:tesbee/Resources/app_colors.dart';
 import 'package:tesbee/Screens/BeadsScreen/beads_viewmodel.dart';
 import 'package:tesbee/Screens/AIChatScreen/ai_chat_viewmodel.dart';
 import 'package:tesbee/Utils/color_utils.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AIChatView extends StatefulWidget {
   const AIChatView({Key? key}) : super(key: key);
@@ -19,10 +20,11 @@ class _AIChatViewState extends State<AIChatView> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: AppColors.primaryBackground,
       appBar: AppBar(
-        title: Text('AI Hoca',
+        title: Text(l10n.aiHocaTitle,
             style: TextStyle(color: getTextColor(AppColors.primaryBackground))),
         backgroundColor: AppColors.primaryBackground,
       ),
@@ -65,7 +67,7 @@ class _AIChatViewState extends State<AIChatView> {
                     cursorColor: beadsViewModel.beadColor.value,
                     style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
-                      hintText: 'Sorunuzu yazın...',
+                      hintText: l10n.typeYourQuestion,
                       hintStyle: const TextStyle(color: Colors.white30),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(24),

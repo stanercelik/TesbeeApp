@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tesbee/Constants/string_constants.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tesbee/Resources/app_colors.dart';
 import 'package:tesbee/Screens/BeadsScreen/beads_view.dart';
 import 'package:tesbee/Screens/BeadsScreen/beads_viewmodel.dart';
 import 'package:tesbee/Screens/DhikrsFlow/DhikrListScreen/dhikrs_view.dart';
+import 'package:tesbee/Screens/DhikrsFlow/DhikrListScreen/dhikrs_viewmodel.dart';
 import 'package:tesbee/Screens/HomeScreen/home_screen_viewmodel.dart';
 import 'package:tesbee/Screens/AIChatScreen/ai_chat_view.dart';
 
@@ -18,8 +19,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final HomeScreenViewModel homeScreenController =
       Get.put(HomeScreenViewModel());
-
   final BeadsViewModel beadsViewModel = Get.put(BeadsViewModel());
+  final DhikrsViewModel dhikrsViewModel = Get.put(DhikrsViewModel());
 
   final List _pages = [
     DhikrView(),
@@ -29,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       body: Obx(() {
         return _pages[homeScreenController.selectedIndex.value];
@@ -61,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: 35,
                   height: 35,
                 ),
-                label: StringConstants.bottomNavBarDhikrs,
+                label: l10n.bottomNavBarDhikrs,
               ),
               BottomNavigationBarItem(
                 icon: Image.asset(
@@ -76,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: 45,
                   height: 45,
                 ),
-                label: StringConstants.bottomNavBarBeads,
+                label: l10n.bottomNavBarBeads,
               ),
               BottomNavigationBarItem(
                 icon: Icon(
@@ -89,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: beadsViewModel.beadColor.value,
                   size: 32,
                 ),
-                label: 'AI Hoca',
+                label: l10n.bottomNavBarAIHoca,
               ),
             ],
             currentIndex: homeScreenController.selectedIndex.value,

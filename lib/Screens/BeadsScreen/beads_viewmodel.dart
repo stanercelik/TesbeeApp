@@ -2,14 +2,15 @@ import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tesbee/Constants/string_constants.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tesbee/Resources/picker_colors.dart';
 import 'package:tesbee/Screens/DraggableCycleView/draggable_cycle_view_model.dart';
 import 'package:tesbee/Services/ad_service.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 class BeadsViewModel extends DraggableCycleViewModel {
-  var currentText = StringConstants.subhanallahString.obs;
+  late String _currentText;
+  var currentText = ''.obs;
 
   var beadColor = premiumPickerColors["darkorange"]!.obs;
   var stringColor = premiumPickerColors["gray"]!.obs;
@@ -33,6 +34,22 @@ class BeadsViewModel extends DraggableCycleViewModel {
 
   BeadsViewModel() {
     fetchSettingsFromFirestore();
+    _updateCurrentText();
+  }
+
+  void _updateCurrentText() {
+    final context = Get.context;
+    if (context == null) return;
+    
+    final l10n = AppLocalizations.of(context)!;
+    if (lastCount < 33) {
+      _currentText = l10n.subhanallahString;
+    } else if (lastCount < 66) {
+      _currentText = l10n.elhamdulillahString;
+    } else if (lastCount < 99) {
+      _currentText = l10n.allahuekberString;
+    }
+    currentText.value = _currentText;
   }
 
   void fetchSettingsFromFirestore() async {
@@ -82,22 +99,28 @@ class BeadsViewModel extends DraggableCycleViewModel {
   void increment() {
     if (lastCount.value < 99) {
       lastCount.value++;
-
-      // Check for special counts and play sound/show notification
-      if (lastCount.value == 33 ||
-          lastCount.value == 66 ||
-          lastCount.value == 99) {
+      
+      // Özel sayılarda ses çal ve bildirim göster
+      if (lastCount.value == 33 || lastCount.value == 66) {
         _playSpecialSound();
         _showCountNotification(lastCount.value);
+      } else if (lastCount.value == 99) {
+        _playSpecialSound();
+        _showCountNotification(lastCount.value);
+        // 99'a ulaşıldığında reklam göster
+        adService.showInterstitialAd();
+        // Kısa bir gecikme ile sayacı 1'e döndür
+        Future.delayed(const Duration(milliseconds: 500), () {
+          lastCount.value = 1;
+          _updateCurrentText();
+        });
       }
-
-      if (lastCount.value == 99) {
-        isComplete.value = true;
-        adService.showInterstitialTesbihatDoneAd();
-      }
+      
+      _updateCurrentText();
       updateLastCountInFirestore();
+      onCountChanged(lastCount.value);
+      playSoundAndVibrate(); // Normal ses ve titreşim
     }
-    playSoundAndVibrate();
   }
 
   void _playSpecialSound() async {
@@ -111,17 +134,21 @@ class BeadsViewModel extends DraggableCycleViewModel {
   }
 
   void _showCountNotification(int count) {
+    final context = Get.context;
+    if (context == null) return;
+    
+    final l10n = AppLocalizations.of(context)!;
     String message = '';
     if (count == 33) {
-      message = 'Subhanallah 33';
+      message = l10n.dhikrCountMessage33;
     } else if (count == 66) {
-      message = 'Elhamdulillah 66';
+      message = l10n.dhikrCountMessage66;
     } else if (count == 99) {
-      message = 'Allahu Ekber 99';
+      message = l10n.dhikrCountMessage99;
     }
 
     Get.snackbar(
-      'TesBee',
+      l10n.tesbeeNotificationTitle,
       message,
       snackPosition: SnackPosition.TOP,
       backgroundColor: beadColor.value,
@@ -133,13 +160,7 @@ class BeadsViewModel extends DraggableCycleViewModel {
   @override
   void updateText() {
     soundAndVibrateExactValue();
-    if (lastCount < 33) {
-      currentText.value = StringConstants.subhanallahString;
-    } else if (lastCount < 66) {
-      currentText.value = StringConstants.elhamdulillahString;
-    } else if (lastCount < 99) {
-      currentText.value = StringConstants.allahuekberString;
-    }
+    _updateCurrentText();
   }
 
   @override
@@ -191,10 +212,14 @@ class BeadsViewModel extends DraggableCycleViewModel {
 
   @override
   void onCountChanged(int count) {
+    final context = Get.context;
+    if (context == null) return;
+    
+    final l10n = AppLocalizations.of(context)!;
     if (count == 33) {
       Get.snackbar(
-        'Tebrikler!',
-        '33 zikri tamamladınız',
+        l10n.congratulations,
+        l10n.dhikrCompletedCount(33),
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.green,
         colorText: Colors.white,
@@ -202,8 +227,8 @@ class BeadsViewModel extends DraggableCycleViewModel {
       );
     } else if (count == 66) {
       Get.snackbar(
-        'Tebrikler!',
-        '66 zikri tamamladınız',
+        l10n.congratulations,
+        l10n.dhikrCompletedCount(66),
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.green,
         colorText: Colors.white,
@@ -211,8 +236,8 @@ class BeadsViewModel extends DraggableCycleViewModel {
       );
     } else if (count == 99) {
       Get.snackbar(
-        'Tebrikler!',
-        '99 zikri tamamladınız',
+        l10n.congratulations,
+        l10n.dhikrCompletedCount(99),
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.green,
         colorText: Colors.white,

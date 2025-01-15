@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tesbee/Resources/app_colors.dart';
 import 'package:tesbee/Screens/Authflow/BaseAuth/base_auth_view.dart';
 import 'package:tesbee/Screens/Authflow/SignInFlow/ForgotPasswordBS/forgot_password_view.dart';
@@ -15,10 +16,12 @@ class SignInView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return BaseAuthScreen(
-      title: 'E-posta ile giriş yap',
-      subtitle: 'E-posta ve şifreni girerek giriş yap',
-      buttonText: 'Giriş yap',
+      title: l10n.signInTitle,
+      subtitle: l10n.signInSubtitle,
+      buttonText: l10n.signInButton,
       emailController: _signInViewModel.emailController,
       passwordController: _signInViewModel.passwordController,
       isEmailValid: _signInViewModel.isEmailValid,
@@ -41,7 +44,6 @@ class SignInView extends StatelessWidget {
           ),
         );
       },
-      //onBiometricAuthPressed: () => _signInViewModel.signInWithBiometrics(),
     );
   }
 }

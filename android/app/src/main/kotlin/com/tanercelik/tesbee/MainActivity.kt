@@ -1,4 +1,4 @@
-package com.tanercelik.tesbeeApp
+package com.tanercelik.tesbee
 
 import io.flutter.embedding.android.FlutterActivity
 

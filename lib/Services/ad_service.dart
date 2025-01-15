@@ -27,7 +27,7 @@ class AdService extends GetxService {
           _isInterstitialAdLoaded = true;
         },
         onAdFailedToLoad: (LoadAdError error) {
-          print('InterstitialAd failed to load: $error');
+          debugPrint('InterstitialAd failed to load: $error');
           _isInterstitialAdLoaded = false;
         },
       ),
@@ -50,7 +50,7 @@ class AdService extends GetxService {
       _interstitialAd!.show();
       _isInterstitialAdLoaded = false; // Reset the flag
     } else {
-      print('Interstitial ad is not loaded yet.');
+      debugPrint('Interstitial ad is not loaded yet.');
     }
   }
 
@@ -64,7 +64,7 @@ class AdService extends GetxService {
           _isInterstitialTesbihatDoneAdLoaded = true;
         },
         onAdFailedToLoad: (LoadAdError error) {
-          print('InterstitialAd failed to load: $error');
+          debugPrint('InterstitialAd failed to load: $error');
           _isInterstitialTesbihatDoneAdLoaded = false;
         },
       ),
@@ -87,7 +87,7 @@ class AdService extends GetxService {
       _interstitialAd!.show();
       _isInterstitialTesbihatDoneAdLoaded = false; // Reset the flag
     } else {
-      print('Interstitial ad is not loaded yet.');
+      debugPrint('Interstitial ad is not loaded yet.');
     }
   }
 
@@ -98,16 +98,16 @@ class AdService extends GetxService {
       request: const AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (Ad ad) {
-          print('BannerAd loaded.');
+          debugPrint('BannerAd loaded.');
           _isBannerAdLoaded = true;
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          print('BannerAd failed to load: $error');
+          debugPrint('BannerAd failed to load: $error');
           ad.dispose();
           _isBannerAdLoaded = false;
         },
-        onAdOpened: (Ad ad) => print('BannerAd opened.'),
-        onAdClosed: (Ad ad) => print('BannerAd closed.'),
+        onAdOpened: (Ad ad) => debugPrint('BannerAd opened.'),
+        onAdClosed: (Ad ad) => debugPrint('BannerAd closed.'),
       ),
     );
 

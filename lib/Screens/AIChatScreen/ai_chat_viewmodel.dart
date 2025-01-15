@@ -1,12 +1,14 @@
 import 'package:get/get.dart';
 import 'package:fal_client/fal_client.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AIChatViewModel extends GetxController {
   final messages = <ChatMessage>[].obs;
   final isLoading = false.obs;
   final scrollController = ScrollController();
   late final FalClient fal;
+  final l10n = AppLocalizations.of(Get.context!)!;
 
   @override
   void onInit() {
@@ -65,7 +67,7 @@ class AIChatViewModel extends GetxController {
         print("Error in AI Chat: $e");
         print("Stack trace: ${StackTrace.current}");
         messages.add(ChatMessage(
-          content: "Üzgünüm, bir hata oluştu. Lütfen tekrar deneyin.",
+          content: l10n.errorMessage,
           isUser: false,
         ));
       }

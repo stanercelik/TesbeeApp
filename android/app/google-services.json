@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:547803490829:android:b21cbb5508dd5f74918344",
+        "mobilesdk_app_id": "1:547803490829:android:92276b82063b6c27918344",
         "android_client_info": {
-          "package_name": "com.example.tesbih_app"
+          "package_name": "com.tanercelik.tesbee"
         }
       },
       "oauth_client": [
@@ -46,6 +46,42 @@
         "mobilesdk_app_id": "1:547803490829:android:8a77744661349706918344",
         "android_client_info": {
           "package_name": "com.tanercelik.tesbeeApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "547803490829-igfubaqo0a7m1b7tata7aaofdu5lvidk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTxfczDOg3jv-12Y9BLCEvispB8sATIv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "547803490829-igfubaqo0a7m1b7tata7aaofdu5lvidk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "547803490829-vqj61or26nu6i3tghulv9q666m78998l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tesbihApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:547803490829:android:12ca1b85add81613918344",
+        "android_client_info": {
+          "package_name": "com.tesbee.release"
         }
       },
       "oauth_client": [

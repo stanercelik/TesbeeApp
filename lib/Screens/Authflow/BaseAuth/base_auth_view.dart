@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tesbee/Components/custom_button.dart';
 import 'package:tesbee/Components/custom_textfield.dart';
 import 'package:tesbee/Resources/app_colors.dart';
@@ -39,6 +40,7 @@ class BaseAuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final UserAuthViewModel baseAuthViewModel = Get.put(UserAuthViewModel());
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: AppColors.primaryBackground,
@@ -83,7 +85,7 @@ class BaseAuthScreen extends StatelessWidget {
               Obx(
                 () => CustomTextField(
                   controller: emailController,
-                  hintText: 'E-posta',
+                  hintText: l10n.emailLabel,
                   keyboardType: TextInputType.emailAddress,
                   isValid: isEmailValid.value,
                 ),
@@ -92,7 +94,7 @@ class BaseAuthScreen extends StatelessWidget {
               Obx(
                 () => CustomTextField(
                   controller: passwordController,
-                  hintText: 'Şifre',
+                  hintText: l10n.passwordLabel,
                   obscureText: true,
                   isValid: isPasswordValid.value,
                   keyboardType: TextInputType.visiblePassword,
@@ -105,8 +107,8 @@ class BaseAuthScreen extends StatelessWidget {
                       children: [
                         TextButton(
                             onPressed: onForgotPasswordPressed,
-                            child: const Text(
-                              "Şifrenizi mi unuttunuz?",
+                            child: Text(
+                              l10n.forgotPassword,
                               style: TextStyle(
                                   color: Colors.blue,
                                   fontWeight: FontWeight.w500),
@@ -134,7 +136,7 @@ class BaseAuthScreen extends StatelessWidget {
                   alignment: WrapAlignment.center,
                   children: [
                     Text(
-                      'Devam ederek',
+                      l10n.byContinuing,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 14, color: AppColors.secondaryText),
@@ -144,12 +146,12 @@ class BaseAuthScreen extends StatelessWidget {
                         String markdownData = await baseAuthViewModel
                             .loadMarkdownFile('assets/privacy_policy.md');
                         _showMarkdownDialog(
-                            context, 'Gizlilik Politikası', markdownData);
+                            context, l10n.privacyPolicy, markdownData);
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 4.0),
                         child: Text(
-                          'Gizlilik Politikamızı',
+                          l10n.privacyPolicy,
                           style: TextStyle(
                             fontSize: 14,
                             color: AppColors.primaryText,
@@ -160,7 +162,7 @@ class BaseAuthScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      ' ve ',
+                      l10n.and,
                       style: TextStyle(
                           fontSize: 14, color: AppColors.secondaryText),
                     ),
@@ -169,10 +171,10 @@ class BaseAuthScreen extends StatelessWidget {
                         String markdownData = await baseAuthViewModel
                             .loadMarkdownFile('assets/terms_and_conditions.md');
                         _showMarkdownDialog(
-                            context, 'Kullanım Şartları', markdownData);
+                            context, l10n.termsAndConditions, markdownData);
                       },
                       child: Text(
-                        'Kullanım Şartlarımızı',
+                        l10n.termsAndConditions,
                         style: TextStyle(
                           fontSize: 14,
                           color: AppColors.primaryText,
@@ -182,7 +184,7 @@ class BaseAuthScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      ' kabul etmiş olursunuz.',
+                      l10n.youAccept,
                       style: TextStyle(
                           fontSize: 14, color: AppColors.secondaryText),
                     ),
@@ -211,7 +213,7 @@ class BaseAuthScreen extends StatelessWidget {
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Kapat'),
+              child: Text(AppLocalizations.of(context)!.close),
               onPressed: () {
                 Navigator.of(context).pop();
               },

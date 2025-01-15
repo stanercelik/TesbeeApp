@@ -1,0 +1,344 @@
+{
+  "dhikrs": [
+    {
+      "title": {
+        "tr": "Allah bize yeter",
+        "en": "Allah is sufficient"
+      },
+      "arabic": "حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ",
+      "transliteration": "Hasbunallahu va ni'mal-vakil",
+      "meaning": {
+        "tr": "Allah bize yeter, O ne güzel vekildir",
+        "en": "Allah is sufficient for us, and He is the best Disposer of affairs"
+      },
+      "targetCount": 33,
+      "category": {
+        "tr": "Tevekkül",
+        "en": "Reliance"
+      }
+    },
+    {
+      "title": {
+        "tr": "Güç Allah'tandır",
+        "en": "Power is from Allah"
+      },
+      "arabic": "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ",
+      "transliteration": "La havla va la kuvvata illa billah",
+      "meaning": {
+        "tr": "Hiçbir güç ve kuvvet Allah'tan bağımsız değildir",
+        "en": "There is no power nor might except with Allah"
+      },
+      "targetCount": 33,
+      "category": {
+        "tr": "Tevekkül",
+        "en": "Reliance"
+      }
+    },
+    {
+      "title": {
+        "tr": "Kolaylaştır",
+        "en": "Make it easy"
+      },
+      "arabic": "اللَّهُمَّ يَسِّرْ وَلا تُعَسِّرْ",
+      "transliteration": "Allahümme yessir ve lâ tu'assir",
+      "meaning": {
+        "tr": "Allah'ım kolaylaştır, zorlaştırma",
+        "en": "O Allah, make it easy and do not make it difficult"
+      },
+      "targetCount": 33,
+      "category": {
+        "tr": "Kolaylık",
+        "en": "Ease"
+      }
+    },
+    {
+      "title": {
+        "tr": "Rahmet kapılarını aç",
+        "en": "Open doors of mercy"
+      },
+      "arabic": "اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ",
+      "transliteration": "Allahümme iftah li ebvâbe rahmetike",
+      "meaning": {
+        "tr": "Allah'ım, bana rahmet kapılarını aç",
+        "en": "O Allah, open for me the doors of Your mercy"
+      },
+      "targetCount": 33,
+      "category": {
+        "tr": "Rahmet",
+        "en": "Mercy"
+      }
+    },
+    {
+      "title": {
+        "tr": "Hayat kaynağı",
+        "en": "Source of life"
+      },
+      "arabic": "يَا حَيُّ يَا قَيُّومُ",
+      "transliteration": "Ya Hayyu Ya Kayyum",
+      "meaning": {
+        "tr": "Ey hayatın ve varlığın kaynağı olan Allah",
+        "en": "O Ever-Living, O Sustainer of all existence"
+      },
+      "targetCount": 33,
+      "category": {
+        "tr": "Esma Zikri",
+        "en": "Divine Name"
+      }
+    },
+    {
+      "title": {
+        "tr": "Af ve afiyet",
+        "en": "Forgiveness and well-being"
+      },
+      "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ العَفْوَ وَالعَافِيَةَ",
+      "transliteration": "Allahümme inni es'elüke'l-afve ve'l-afiyete",
+      "meaning": {
+        "tr": "Allah'ım, Senden af ve afiyet diliyorum",
+        "en": "O Allah, I ask You for forgiveness and well-being"
+      },
+      "targetCount": 33,
+      "category": {
+        "tr": "Şifa",
+        "en": "Health & Well-being"
+      }
+    },
+    {
+      "title": {
+        "tr": "Şifa ver",
+        "en": "Grant healing"
+      },
+      "arabic": "اللَّهُمَّ اشْفِ مَرْضَانَا",
+      "transliteration": "Allahümme'şfi merdanâ",
+      "meaning": {
+        "tr": "Allah'ım, hasta olanlarımıza şifa ver",
+        "en": "O Allah, grant healing to our sick"
+      },
+      "targetCount": 33,
+      "category": {
+        "tr": "Şifa",
+        "en": "Healing"
+      }
+    },
+    {
+      "title": {
+        "tr": "Rızkını yay",
+        "en": "Spread Your provision"
+      },
+      "arabic": "اللَّهُمَّ ابْسُطْ عَلَيْنَا رِزْقَكَ",
+      "transliteration": "Allahumme ibsüt aleyna rızkek",
+      "meaning": {
+        "tr": "Allah'ım, rızkını üzerimize bolca yay",
+        "en": "O Allah, spread Your provision abundantly upon us"
+      },
+      "targetCount": 33,
+      "category": {
+        "tr": "Rızık",
+        "en": "Provision"
+      }
+    },
+    {
+      "title": {
+        "tr": "Rızkımızı bereketli kıl",
+        "en": "Bless our provision"
+      },
+      "arabic": "اللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا",
+      "transliteration": "Allahümme barik lenâ fî mâ razaktenâ",
+      "meaning": {
+        "tr": "Allah'ım, bize verdiğin rızıkları bereketli kıl",
+        "en": "O Allah, bless for us what You have provided us"
+      },
+      "targetCount": 33,
+      "category": {
+        "tr": "Bereket",
+        "en": "Blessing"
+      }
+    },
+    {
+      "title": {
+        "tr": "İlmimi artır",
+        "en": "Increase my knowledge"
+      },
+      "arabic": "رَّبِّ زِدْنِي عِلْمًا",
+      "transliteration": "Rabbi zidnî 'ilmen",
+      "meaning": {
+        "tr": "Rabbim, ilmimi artır",
+        "en": "My Lord, increase me in knowledge"
+      },
+      "targetCount": 33,
+      "category": {
+        "tr": "İlim",
+        "en": "Knowledge"
+      }
+    },
+    {
+      "title": {
+        "tr": "Salavat",
+        "en": "Blessings upon Muhammad"
+      },
+      "arabic": "اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ",
+      "transliteration": "Allahümme salli alâ seyyidinâ Muhammed",
+      "meaning": {
+        "tr": "Allah'ım, Efendimiz Muhammed'e salât eyle",
+        "en": "O Allah, send blessings upon our master Muhammad"
+      },
+      "targetCount": 10,
+      "category": {
+        "tr": "Salavat",
+        "en": "Salutations"
+      }
+    },
+    {
+      "title": {
+        "tr": "Rahman ve Rahim",
+        "en": "Most Compassionate"
+      },
+      "arabic": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ",
+      "transliteration": "Bismillahirrahmanirrahim",
+      "meaning": {
+        "tr": "Rahman ve Rahim olan Allah'ın adıyla",
+        "en": "In the name of Allah, the Most Compassionate, the Most Merciful"
+      },
+      "targetCount": 33,
+      "category": {
+        "tr": "Besmele",
+        "en": "Beginning"
+      }
+    },
+    {
+      "title": {
+        "tr": "Hayırlı iş",
+        "en": "Righteous work"
+      },
+      "arabic": "اللَّهُمَّ يَسِّرْ لِي عَمَلًا صَالِحًا",
+      "transliteration": "Allahümme yassir lî 'amelen sâlihan",
+      "meaning": {
+        "tr": "Allah'ım, bana hayırlı bir iş kolaylaştır",
+        "en": "O Allah, facilitate for me a righteous job"
+      },
+      "targetCount": 33,
+      "category": {
+        "tr": "İş Bulma",
+        "en": "Seeking Employment"
+      }
+    },
+    {
+      "title": {
+        "tr": "Rızkıma yeten",
+        "en": "Sufficient for provision"
+      },
+      "arabic": "حَسْبِيَ اللَّهُ لِرِزْقِي",
+      "transliteration": "Hasbiyallahu li rizkî",
+      "meaning": {
+        "tr": "Rızkım konusunda bana Allah yeter",
+        "en": "Allah is sufficient for me regarding my provision"
+      },
+      "targetCount": 33,
+      "category": {
+        "tr": "Rızık",
+        "en": "Provision"
+      }
+    },
+    {
+      "title": {
+        "tr": "İmanı sevdir",
+        "en": "Make faith beloved"
+      },
+      "arabic": "اللَّهُمَّ حَبِّبْ إِلَيْنَا الْإِيمَانَ",
+      "transliteration": "Allâhumme habbib ilaynâ'l-îmân",
+      "meaning": {
+        "tr": "Allah'ım, imanı bize sevdir",
+        "en": "O Allah, make faith beloved to us"
+      },
+      "targetCount": 33,
+      "category": {
+        "tr": "İman",
+        "en": "Faith"
+      }
+    },
+    {
+      "title": {
+        "tr": "Kapıları açan",
+        "en": "Opener of doors"
+      },
+      "arabic": "يَا فَتَّاحُ",
+      "transliteration": "Yâ Fettâh",
+      "meaning": {
+        "tr": "Ey kapıları açan Allah",
+        "en": "O Opener of all doors"
+      },
+      "targetCount": 33,
+      "category": {
+        "tr": "İsim Zikri",
+        "en": "Divine Name"
+      }
+    },
+    {
+      "title": {
+        "tr": "Aileme bereket",
+        "en": "Bless my family"
+      },
+      "arabic": "اللَّهُمَّ بَارِكْ فِي أَهْلِي وَمَالِي",
+      "transliteration": "Allahümme bârik fî ehlî ve mâlî",
+      "meaning": {
+        "tr": "Allah'ım, aileme ve malıma bereket ver",
+        "en": "O Allah, bless my family and my wealth"
+      },
+      "targetCount": 33,
+      "category": {
+        "tr": "Aile ve Bereket",
+        "en": "Family & Blessing"
+      }
+    },
+    {
+      "title": {
+        "tr": "Affet beni",
+        "en": "Forgive me"
+      },
+      "arabic": "اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي",
+      "transliteration": "Allâhumme innekâ 'afuvvun tuhibbul 'afve fa'fu 'annî",
+      "meaning": {
+        "tr": "Allah'ım, Sen affedicisin, affetmeyi seversin, beni affet",
+        "en": "O Allah, You are Forgiving and love to forgive, so forgive me"
+      },
+      "targetCount": 33,
+      "category": {
+        "tr": "Bağışlanma",
+        "en": "Forgiveness"
+      }
+    },
+    {
+      "title": {
+        "tr": "Kayıplarımı telafi et",
+        "en": "Compensate my losses"
+      },
+      "arabic": "اللَّهُمَّ اجْبُرْنِي",
+      "transliteration": "Allâhumme jburnî",
+      "meaning": {
+        "tr": "Allah'ım kayıplarımı telafi et, beni onar",
+        "en": "O Allah, compensate me for my losses and mend me"
+      },
+      "targetCount": 33,
+      "category": {
+        "tr": "Teselli",
+        "en": "Consolation"
+      }
+    },
+    {
+      "title": {
+        "tr": "Doğru yol",
+        "en": "Straight path"
+      },
+      "arabic": "اللَّهُمَّ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ",
+      "transliteration": "Allahümme ihdinâ sırâtel müstakîm",
+      "meaning": {
+        "tr": "Allah'ım, bizi dosdoğru yola ilet",
+        "en": "O Allah, guide us to the straight path"
+      },
+      "targetCount": 33,
+      "category": {
+        "tr": "Hidayet",
+        "en": "Guidance"
+      }
+    }
+  ]
+}

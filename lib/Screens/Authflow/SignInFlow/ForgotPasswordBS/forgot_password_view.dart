@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tesbee/Components/custom_button.dart';
 import 'package:tesbee/Components/custom_textfield.dart';
 import 'package:tesbee/Resources/app_colors.dart';
@@ -20,11 +21,12 @@ class ForgotPasswordBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Container(
       decoration: BoxDecoration(
         color: AppColors.primaryBackground,
         borderRadius: BorderRadius.circular(16),
-        //borderRadius: const BorderRadius.only( topLeft: Radius.circular(16), topRight: Radius.circular(16))
       ),
       child: Padding(
         padding:
@@ -35,7 +37,7 @@ class ForgotPasswordBottomSheet extends StatelessWidget {
             Obx(
               () => CustomTextField(
                 controller: emailController,
-                hintText: 'E-mail',
+                hintText: l10n.emailLabel,
                 keyboardType: TextInputType.emailAddress,
                 isValid: isEmailValid.value,
               ),
@@ -51,7 +53,7 @@ class ForgotPasswordBottomSheet extends StatelessWidget {
                           Navigator.pop(context);
                         }
                       : null,
-                  text: 'Send',
+                  text: l10n.sendResetLink,
                   backgroundColor: isEmailValid.value
                       ? AppColors.primaryButton
                       : Colors.grey,

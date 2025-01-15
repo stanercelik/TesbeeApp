@@ -2,13 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
-import 'package:tesbee/Constants/string_constants.dart';
 import 'package:tesbee/Models/dhikr_model.dart';
 import 'package:tesbee/Screens/DhikrsFlow/DhikrListScreen/add_dhikr_bottom_sheet.dart';
 import 'package:tesbee/Screens/DhikrsFlow/DhikrScreen/dhikr_beads_view.dart';
 import 'package:tesbee/Screens/DhikrsFlow/DhikrListScreen/dhikrs_viewmodel.dart';
 import 'package:tesbee/Utils/color_utils.dart';
 import 'package:tesbee/Utils/slideable_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DhikrListItemView extends StatelessWidget {
   const DhikrListItemView({
@@ -24,6 +24,7 @@ class DhikrListItemView extends StatelessWidget {
     final stringColor = dhikr.stringColor;
     final beadsColor = dhikr.beadsColor;
     final DhikrsViewModel dhikrsViewModel = Get.find<DhikrsViewModel>();
+    final l10n = AppLocalizations.of(context)!;
 
     return Slidable(
       key: Key(dhikr.id),
@@ -41,7 +42,7 @@ class DhikrListItemView extends StatelessWidget {
                 backgroundColor: Colors.blueAccent,
                 foregroundColor: Colors.white,
                 icon: Icons.edit,
-                label: StringConstants.editDhikr,
+                label: l10n.editDhikrButton,
                 borderRadius: BorderRadius.circular(16),
               ),
             ),
@@ -59,7 +60,7 @@ class DhikrListItemView extends StatelessWidget {
                 backgroundColor: Colors.redAccent,
                 foregroundColor: Colors.white,
                 icon: Icons.delete,
-                label: StringConstants.deleteDhikr,
+                label: l10n.dhikrAlertDeleteButton,
                 borderRadius: BorderRadius.circular(16),
               ),
             ),

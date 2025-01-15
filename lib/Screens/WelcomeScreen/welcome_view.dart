@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tesbee/Components/custom_button.dart';
 import 'package:tesbee/Resources/app_colors.dart';
 import 'package:tesbee/Screens/WelcomeScreen/welcome_viewmodel.dart';
@@ -17,6 +18,8 @@ class WelcomeView extends StatelessWidget {
         screenSize.height * 0.35; // Adjusted to be 35% of screen height
     final double padding =
         screenSize.width * 0.05; // 5% of screen width as padding
+
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: AppColors.primaryBackground,
@@ -41,7 +44,7 @@ class WelcomeView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Hoş Geldin",
+                  l10n.welcomeTitle,
                   style: TextStyle(
                     fontSize: screenSize.width * 0.1, // 10% of screen width
                     fontWeight: FontWeight.w300,
@@ -79,7 +82,7 @@ class WelcomeView extends StatelessWidget {
                         onPressed: () {
                           welcomeViewModel.exploreTheApp();
                         },
-                        text: "Uygulamayı keşfet",
+                        text: l10n.exploreApp,
                         backgroundColor: AppColors.primaryButton,
                         foregroundColor: Colors.black,
                         icon: Icons.person_outline_rounded,
@@ -91,7 +94,7 @@ class WelcomeView extends StatelessWidget {
                         onPressed: () {
                           welcomeViewModel.navigateToSignIn();
                         },
-                        text: "E-posta ile giriş yap",
+                        text: l10n.signInWithEmail,
                         backgroundColor: Colors.white.withOpacity(0.75),
                         foregroundColor: Colors.black,
                         icon: Icons.mail_rounded,
@@ -105,7 +108,7 @@ class WelcomeView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Hesabın yok mu?",
+                              l10n.noAccount,
                               style: TextStyle(
                                 color: Colors.white.withOpacity(0.75),
                                 fontSize: screenSize.width *
@@ -117,7 +120,7 @@ class WelcomeView extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 4.0),
                                 child: Text(
-                                  "Kaydol",
+                                  l10n.signUp,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w700,
                                     color: AppColors.primaryButton,
