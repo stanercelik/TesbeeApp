@@ -45,27 +45,19 @@ class AIChatViewModel extends GetxController {
           logs: true,
         );
 
-        if (response != null) {
-          final responseData = response.data;
-          if (responseData != null && responseData is Map) {
-            final content = responseData['output'] ?? responseData.toString();
-            if (content.isNotEmpty) {
-              messages.add(ChatMessage(
-                content: content,
-                isUser: false,
-              ));
-            } else {
-              throw Exception("Empty response content");
-            }
-          } else {
-            throw Exception("Invalid response data format");
-          }
+        final responseData = response.data;
+        final content = responseData['output'] ?? responseData.toString();
+        if (content.isNotEmpty) {
+          messages.add(ChatMessage(
+            content: content,
+            isUser: false,
+          ));
         } else {
-          throw Exception("Null response from API");
+          throw Exception("Empty response content");
         }
       } catch (e) {
-        print("Error in AI Chat: $e");
-        print("Stack trace: ${StackTrace.current}");
+        debugPrint("Error in AI Chat: $e");
+        debugPrint("Stack trace: ${StackTrace.current}");
         messages.add(ChatMessage(
           content: l10n.errorMessage,
           isUser: false,
